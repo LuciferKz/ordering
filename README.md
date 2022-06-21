@@ -1,7 +1,11 @@
 # 点餐平台
 
-| project
-| | app
-| | mobile
-| | shop
-| | www
+### 项目目录结构
+
+```
+project
+|-- app
+|-- mobile
+|-- shop
+|-- www
+```
