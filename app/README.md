@@ -1,13 +1,33 @@
-# 点餐平台 服务端
+# app
 
-## author: kim zhang
 
-### 项目目录结构
 
+## QuickStart
+
+<!-- add docs here for user -->
+
+see [egg docs][egg] for more detail.
+
+### Development
+
+```bash
+$ npm i
+$ npm run dev
+$ open http://localhost:7001/
 ```
-web
-|── docs -- 项目文档 pnpm docs:dev 可以开启本地编辑模式
-|── env -- 环境变量文件
-|—— mock -- 数据模拟用于无后端服务模式下的本地调试
-|—— public -- 网站公共资源
+
+### Deploy
+
+```bash
+$ npm start
+$ npm stop
 ```
+
+### npm scripts
+
+- Use `npm run lint` to check code style.
+- Use `npm test` to run unit test.
+- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+
+
+[egg]: https://eggjs.org
