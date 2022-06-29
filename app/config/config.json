@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "threeqone@1024",
+    "database": "ordering",
+    "host": "120.55.55.34",
+    "port": 3306,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "threeqone@1024",
+    "database": "ordering_test",
+    "host": "120.55.55.34",
+    "port": 3306,
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "threeqone@1024",
+    "database": "ordering",
+    "host": "120.55.55.34",
+    "port": 3306,
+    "dialect": "mysql"
+  }
+}
