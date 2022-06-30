@@ -1,0 +1,49 @@
+$white: #fff;
+
+// $primary: #18328a; // 主色
+$secondary: #eee; // 次色
+$tertiary: #f6f8fa; // 三色
+
+$primary-light: $white;
+$font-primary: #333;
+$font-placeholder: #999;
+$font-inner: rgba(0, 0, 0, 1);
+$font-secondary: #eee;
+$font-secondary-1: #c9ccd3;
+$font-secondary-2: #ccc;
+$font-secondary-3: #3466f6;
+
+$primary: #1e2128;
+$primary-dark-1: #111318;
+
+$primary-light-1: #2a2e3a;
+$primary-light-2: #282a2f;
+$primary-light-3: #24252a;
+
+$theme-majorel: (
+  light: $white,
+  primary: $primary,
+  font-inner-color: $font-inner,
+  font-primary: $font-primary,
+  layout-sidebar-bg: $primary,
+  layout-header-bg: $primary,
+  layout-main-bg: #f2f3f8,
+  layout-breadcrumbs-bg: $white,
+  menu-font: $font-secondary-1,
+  menu-highlight-font: $white,
+  menu-highlight-bg: $primary-dark-1,
+  menu-main-bg: $primary-dark-1,
+  menu-item-font: $font-secondary-1,
+  menu-item-font1: $font-secondary-2,
+  menu-item-font-button-checked: $font-secondary-3,
+  menu-item-highlight-font: $white,
+  menu-item-highlight-bg: $primary-light-2,
+  border-color: $secondary,
+  template-header-bg: $white,
+  template-body-bg: $white,
+  template-sidebar-bg: $white,
+  template-content-bg: $white,
+  button-background-color: $tertiary,
+  table-header-bg: $tertiary,
+  primary-light-3: $primary-light-3
+);

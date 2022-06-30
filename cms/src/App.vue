@@ -1,21 +1,70 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <router-view v-slot="{ Component }">
+    <transition
+      name="bounce"
+      mode="out-in"
+    >
+      <component
+        :is="Component"
+        v-if="!loading"
+      ></component>
+    </transition>
+  </router-view>
 </template>
 
-<style>
+<script lang="ts">
+import { ref, computed, defineComponent } from "vue";
+import { useStore } from "vuex";
+
+export default defineComponent({
+  setup() {
+    const store = useStore();
+    const token: any = computed(() => store.state.user.token);
+    const loading = ref(!!token.value);
+    // 设置主题
+    store.commit("setTheme", "zero");
+
+    return {
+      loading,
+    };
+  },
+});
+</script>
+<style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  // font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+#container {
+  width: 100%;
+  height: 100%;
+}
+.bounce-enter-active {
+  animation: routeEnter 0.2s;
+}
+.bounce-leave-active {
+  animation: routeLeave 0.2s;
+}
+@keyframes routeLeave {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 5%);
+  }
+}
+@keyframes routeEnter {
+  0% {
+    opacity: 0;
+    transform: translate(0, -5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
 }
 </style>

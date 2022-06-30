@@ -1,0 +1,26 @@
+$white: #fff;
+
+$primary: #666; // 主色
+$secondary: #ccc; // 次色
+$tertiary: #eee; // 三色
+
+$primary-light: $white;
+
+$font-primary: #666;
+$font-secondary: #000;
+
+$theme-default: (
+  layout-sidebar-bg: $primary,
+  layout-header-bg: $primary-light,
+  layout-main-bg: $tertiary,
+  menu-font: $primary-light,
+  menu-highlight-font: $primary,
+  menu-highlight-bg: $primary-light,
+  menu-main-bg: $primary-light,
+  menu-item-font: $font-primary,
+  menu-item-highlight-font: $primary,
+  menu-item-highlight-bg: $secondary,
+  border-color: $secondary,
+  template-search-bg: $primary-light,
+  template-table-bg: $primary-light
+);

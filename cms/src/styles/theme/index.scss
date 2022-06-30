@@ -1,0 +1,18 @@
+@import './default.scss';
+@import './majorel.scss';
+
+$themes: (
+  default: $theme-default,
+  majorel: $theme-majorel
+);
+
+@mixin theme {
+  @each $theme-name, $theme-map in $themes {
+    $theme-map: $theme-map !global;
+    &[data-theme='#{$theme-name}'] {
+      @each $name, $color in $theme-map {
+        --color-#{$name}: #{$color};
+      }
+    }
+  }
+}
