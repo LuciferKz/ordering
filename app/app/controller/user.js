@@ -1,4 +1,4 @@
-// app/controller/users.js
+const crypto = require("crypto");
 const Controller = require("egg").Controller;
 
 function toInt(str) {
@@ -6,6 +6,11 @@ function toInt(str) {
   if (!str) return str;
   return parseInt(str, 10) || 0;
 }
+
+const createRule = {
+  name: { type: "string", required: true },
+  password: { type: "string", required: true },
+};
 
 class UserController extends Controller {
   async index() {
@@ -24,8 +29,14 @@ class UserController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const { name, age } = ctx.request.body;
-    const user = await ctx.model.User.create({ name, age });
+    console.log(ctx.validate);
+    ctx.validate(createRule, ctx.request.body);
+    const { name, password } = ctx.request.body;
+    let md5 = crypto.createHash("md5");
+    let newPas = md5.update(password).digest("hex");
+
+    console.log(name, newPas);
+    const user = await ctx.model.User.create({ name, password: newPas });
     ctx.status = 201;
     ctx.body = user;
   }

@@ -4,12 +4,15 @@
 
 "use strict";
 
-exports.sequelize = {
-  dialect: "mysql",
-  host: "120.55.55.34",
-  port: 3306,
-  database: "ordering",
-};
+// exports.sequelize = {
+//   username: "threeqone",
+//   password: "threeqone@1024",
+//   dialect: "mysql",
+//   host: "120.55.55.34",
+//   port: 3306,
+//   database: "ordering",
+// };
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -24,7 +27,33 @@ module.exports = (appInfo) => {
   config.keys = appInfo.name + "_1655786563956_9833";
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ["errorHandler"];
+
+  config.errorHandler = {
+    match: "/api",
+  };
+
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true,
+    },
+    domainWhiteList: ["*"],
+  };
+
+  config.cors = {
+    origin: "*",
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH",
+  };
+
+  config.sequelize = {
+    username: "threeqone",
+    password: "threeqone@1024",
+    dialect: "mysql",
+    host: "120.55.55.34",
+    port: 3306,
+    database: "ordering",
+  };
 
   // add your user config here
   const userConfig = {

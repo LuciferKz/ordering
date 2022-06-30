@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root",
+    "username": "threeqone",
     "password": "threeqone@1024",
     "database": "ordering",
     "host": "120.55.55.34",
@@ -8,7 +8,7 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
+    "username": "threeqone",
     "password": "threeqone@1024",
     "database": "ordering_test",
     "host": "120.55.55.34",
@@ -16,7 +16,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
+    "username": "threeqone",
     "password": "threeqone@1024",
     "database": "ordering",
     "host": "120.55.55.34",
