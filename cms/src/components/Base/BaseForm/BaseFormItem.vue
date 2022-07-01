@@ -14,7 +14,7 @@
         :label="label"
       >
         <span class="base-form-item__label">
-          {{ $t(label) }}
+          {{ label }}
           <el-tooltip
             v-if="elProps.info"
             class="item"
@@ -22,7 +22,7 @@
             placement="bottom"
           >
             <template #content>
-              <pre>{{ $t(elProps.info) }}</pre>
+              <pre>{{ elProps.info }}</pre>
             </template>
             <i class="iconfont icon-bangzhu"></i>
           </el-tooltip>
@@ -47,7 +47,7 @@
           <el-cascader
             v-if="type === 'cascader'"
             v-model="currentValue"
-            :placeholder="`${$t('请选择')}${$t(label)}`"
+            :placeholder="`${ '请选择' }${ label }`"
             v-bind="elProps"
             :options="elOptions"
             v-on="elEvents"
@@ -56,7 +56,7 @@
             :is="elType"
             v-else-if="elOptions"
             v-model="currentValue"
-            :placeholder="$t(`请${type === 'select'?'选择':'输入'}`) + $t(label)"
+            :placeholder="`请${type === 'select'?'选择':'输入'}` + label"
             v-bind="elProps"
             :options="elOptions"
             v-on="elEvents"
@@ -74,7 +74,7 @@
             :is="elType"
             v-else
             v-model="currentValue"
-            :placeholder="$t('请输入') + $t(label)"
+            :placeholder="'请输入' + label"
             v-bind="elProps"
             v-on="elEvents"
           >

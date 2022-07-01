@@ -1,16 +1,23 @@
 <template>
-  <section class="zero-login">
-    <section class="zero-login__content">
-      <base-form v-bind="baseForm">
-      </base-form>
+  <section class="mj-login">
+    <section class="mj-login__content">
+      <h3>点餐系统管理平台登录</h3>
+      <base-form
+        ref="refForm"
+        v-bind="baseForm"
+      ></base-form>
+      <div class="mj-login__buttons">
+        <base-buttons v-bind="baseButtons"></base-buttons>
+      </div>
     </section>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import { useBaseForm } from "@/hooks/index";
+import { defineComponent, ref } from "vue";
 import $cookie from "@/utils/cookie";
+import { useBaseForm, useBaseButtons } from "@/hooks/index";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   props: {
@@ -20,6 +27,7 @@ export default defineComponent({
     },
   },
   setup(props, context) {
+    const router = useRouter();
     const baseForm = useBaseForm({
       formItems: [
         {
@@ -29,19 +37,40 @@ export default defineComponent({
         {
           label: "密码",
           prop: "password",
-          type: "password",
         },
       ],
+      rules: {
+        name: [{ required: true, message: "请输入用户名" }],
+        password: [{ required: true, message: "请输入密码" }],
+      },
     });
+
+    const baseButtons = useBaseButtons({
+      buttons: [{ key: "login", label: "登录" }],
+      events: {
+        login: function () {
+          refForm.value.getData(() => {
+            console.log(baseForm);
+            router.push("/store");
+          });
+        },
+      },
+    });
+
+    const refForm = ref(null);
+
+    console.log(baseButtons);
     return {
       baseForm,
+      baseButtons,
+      refForm,
     };
   },
 });
 </script>
 
 <style lang="scss">
-.zero-login {
+.mj-login {
   display: flex;
   height: 100%;
   background-color: #d6e9ff;
@@ -51,12 +80,23 @@ export default defineComponent({
 
   &__content {
     display: flex;
-    width: 600px;
+    flex-direction: column;
+    width: 480px;
     height: 240px;
+    padding: 20px 0;
     background: #fff;
     // border-radius: 20px;
     overflow: hidden;
     box-shadow: 1px 0px 10px 4px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__buttons {
+    padding-right: 20px;
   }
 }
 </style>

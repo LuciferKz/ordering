@@ -15,16 +15,14 @@
           :props="props"
           :events="events"
         ></base-buttons>
-        <div
-          v-else
-          v-permission="btn.code"
-        >
+        <div v-else>
+          <!-- v-permission="btn.code" -->
           <el-button
             v-bind="btnProps(btn.props)"
             v-on="btn.events || {}"
             @click="handleBtnClick(btn)"
           >
-            {{ $t(btn.label) }}
+            {{ btn.label }}
           </el-button>
         </div>
       </div>
@@ -33,32 +31,32 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from 'vue'
-import { throttle } from '@/utils'
+import { reactive, defineComponent } from "vue";
+import { throttle } from "@/utils";
 
 export default defineComponent({
   props: {
     data: {
       type: Array,
-      default: (): [] => []
+      default: (): [] => [],
     },
     props: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     events: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
 
   setup({ data, events }) {
-    const buttons = reactive(data)
+    const buttons = reactive(data);
 
     const handleBtnClick = throttle(function (btn: any) {
-      const cb = events[btn.key]
-      cb && cb()
-    }, 1000)
+      const cb = events[btn.key];
+      cb && cb();
+    }, 1000);
 
     return {
       buttons,
@@ -66,24 +64,24 @@ export default defineComponent({
       handleBtnClick,
 
       isArray(data: any) {
-        return data instanceof Array
-      }
-    }
+        return data instanceof Array;
+      },
+    };
   },
 
   computed: {
     barStyle() {
       return {
-        'justify-content': this.props.align || 'flex-end'
-      }
+        "justify-content": this.props.align || "flex-end",
+      };
     },
     btnProps() {
       return function (props: any) {
-        return Object.assign({}, this.props, props)
-      }
-    }
-  }
-})
+        return Object.assign({}, this.props, props);
+      };
+    },
+  },
+});
 </script>
 
 <style lang="scss">

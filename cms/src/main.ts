@@ -7,9 +7,12 @@ import store from "./store";
 
 import useComponents from "@/utils/components";
 
+import "@/styles/element/index.scss";
+// import "@/layout/templates/template.scss";
 import "@/styles/index.scss"; // global css
 
 const app = createApp(App);
-// useComponents(app);
+
+useComponents(app);
 // .use(router).use(store)
 app.use(ElementPlus).use(router).use(store).mount("#app");

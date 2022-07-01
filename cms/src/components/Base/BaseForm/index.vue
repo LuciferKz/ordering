@@ -29,65 +29,67 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent } from 'vue'
+import { ref, reactive, defineComponent } from "vue";
+import BaseFormItem from "./BaseFormItem.vue";
 
 export default defineComponent({
-  name: 'BaseForm',
+  components: { BaseFormItem },
+  name: "BaseForm",
   provide() {
     return {
-      baseForm: this
-    }
+      baseForm: this,
+    };
   },
   props: {
     form: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     formItems: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
 
     rules: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
 
     props: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
 
     readonly: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props) {
-    const model = reactive(props.form)
-    const refForm: any = ref(null)
+    const model = reactive(props.form);
+    const refForm: any = ref(null);
 
     const validate = function (cb: Function) {
-      refForm.value.validate(cb)
-    }
+      refForm.value.validate(cb);
+    };
 
     const getData = function (cb: Function) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         refForm.value.validate((valid: any, err: any) => {
-          valid ? cb(model) : cb(false, err)
-          valid ? resolve(model) : resolve(false)
-        })
-      })
-    }
+          valid ? cb(model) : cb(false, err);
+          valid ? resolve(model) : resolve(false);
+        });
+      });
+    };
 
     return {
       model,
       refForm,
       getData,
-      validate
-    }
-  }
-})
+      validate,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scope>
