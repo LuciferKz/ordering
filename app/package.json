@@ -7,12 +7,16 @@
     "declarations": true
   },
   "dependencies": {
+    "archive": "^0.0.2",
+    "archiver": "^5.3.1",
     "egg": "^2.15.1",
     "egg-cors": "^2.2.3",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^6.0.0",
     "egg-validate": "^2.0.2",
-    "mysql2": "^2.3.3"
+    "jwt-simple": "^0.5.6",
+    "mysql2": "^2.3.3",
+    "qrcode": "^1.5.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

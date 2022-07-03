@@ -29,13 +29,12 @@ class UserController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    console.log(ctx.validate);
+
     ctx.validate(createRule, ctx.request.body);
     const { name, password } = ctx.request.body;
     let md5 = crypto.createHash("md5");
     let newPas = md5.update(password).digest("hex");
 
-    console.log(name, newPas);
     const user = await ctx.model.User.create({ name, password: newPas });
     ctx.status = 201;
     ctx.body = user;

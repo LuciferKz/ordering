@@ -16,7 +16,7 @@ module.exports = {
       status: INTEGER, // 是否开启门店
       opening_time: STRING(30), // 营业时间
       table_count: INTEGER, // 桌总数
-      open_moible_ordering: INTEGER, // 是否开启手机点餐
+      open_mobile_ordering: INTEGER, // 是否开启手机点餐
       menu_display_mode: INTEGER, // 菜单展示模式
       created_at: DATE,
       updated_at: DATE,
