@@ -15,18 +15,13 @@
         <el-col>
           <el-button
             type="primary"
-            size="medium"
             @click="handleSearch"
-          >{{ $t("搜索") }}</el-button>
+          >{{ "搜索" }}</el-button>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-button
-            type="text"
-            size="medium"
-            @click="handleReset"
-          >{{ $t("清除") }}</el-button>
+          <el-button @click="handleReset">{{ "清除" }}</el-button>
         </el-col>
       </el-row>
     </section>
@@ -34,57 +29,57 @@
 </template>
 
 <script lang="ts">
-import BaseForm from './BaseForm/index.vue'
-import { ref, reactive, defineComponent } from 'vue'
-import { throttle } from '@/utils'
+import BaseForm from "./BaseForm/index.vue";
+import { ref, reactive, defineComponent } from "vue";
+import { throttle } from "@/utils";
 
 export default defineComponent({
   components: { BaseForm },
   props: {
     baseForm: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     events: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
 
-  emits: ['search', 'reset'],
+  emits: ["search", "reset"],
 
   setup(props, { emit }) {
-    const searchForm: any = reactive(props.baseForm.form)
+    const searchForm: any = reactive(props.baseForm.form);
 
     const handleSearch = throttle(function () {
       if (props.events.search) {
-        props.events.search.call(null, searchForm)
+        props.events.search.call(null, searchForm);
       } else {
-        emit('search', searchForm)
+        emit("search", searchForm);
       }
-    }, 1000)
+    }, 1000);
 
-    const refSearchForm: any = ref(null)
+    const refSearchForm: any = ref(null);
     const handleReset = throttle(function () {
-      refSearchForm?.value?.refForm?.resetFields()
+      refSearchForm?.value?.refForm?.resetFields();
 
       if (props.events.search) {
-        emit('reset')
-        props.events.search.call(null, searchForm)
+        emit("reset");
+        props.events.search.call(null, searchForm);
       } else {
-        emit('search', searchForm)
+        emit("search", searchForm);
       }
-      emit('reset')
-    }, 1000)
+      emit("reset");
+    }, 1000);
 
     return {
       searchForm,
       refSearchForm,
       handleSearch,
-      handleReset
-    }
-  }
-})
+      handleReset,
+    };
+  },
+});
 </script>
 
 <style lang="scss">

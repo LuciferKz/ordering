@@ -1,10 +1,8 @@
 <template>
-  <section
-    v-loading="loading"
-    class="mj-main-view"
-  >
+  <!-- v-loading="loading" -->
+  <section class="zz-main-view">
     <router-view v-slot="{ Component }">
-      {{ handle(Component) }}
+      <!-- {{ handle(Component) }} -->
       <!-- <transition
         name="bounce"
         mode="out-in"
@@ -24,29 +22,29 @@ import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
-    const route: any = useRoute();
+    // const route: any = useRoute();
     const store: any = useStore();
 
     const includes: any = computed(() => store.state.tab.includes);
 
-    let routePath = "";
+    // let routePath = "";
 
     const loading: any = computed(() => store.state.loading.loading.mainview);
 
     return {
       loading,
 
-      handle(c: any) {
-        if (routePath === route.path || !c.type.name) return;
+      // handle(c: any) {
+      //   if (routePath === route.path || !c.type.name) return;
 
-        routePath = route.path;
+      //   routePath = route.path;
 
-        store.dispatch("setInclude", {
-          key: routePath,
-          value: c.type.name,
-        });
-      },
-      includes,
+      //   store.dispatch("setInclude", {
+      //     key: routePath,
+      //     value: c.type.name,
+      //   });
+      // },
+      // includes,
     };
   },
 });

@@ -35,6 +35,10 @@ a {
   text-decoration: none;
 }
 
+input:-webkit-autofill{
+  -webkit-box-shadow:0 0 0 1000px white inset !important;
+}
+
 ::-webkit-input-placeholder {
   color: #999999 !important;
 }
@@ -51,12 +55,12 @@ a {
   display: flex;
 }
 
-.mj-crm {
+.zz-cms {
   min-width: 1024px;
   height: 100%;
 }
 
-.mj-crm-layout {
+.zz-cms-layout {
   width: 100%;
   height: 100%;
 
@@ -111,7 +115,7 @@ a {
   }
 }
 
-.mj-sidebar {
+.zz-sidebar {
   height: 100%;
 
   &__toggle {
@@ -158,7 +162,7 @@ a {
   }
 }
 
-.mj-crm-logo {
+.zz-cms-logo {
   display: flex;
   align-items: center;
   margin-left: 20px;
@@ -185,7 +189,7 @@ a {
   }
 }
 
-.mj-menu {
+.zz-menu {
   &__module {
     display: flex;
     justify-content: flex-start;
@@ -239,18 +243,18 @@ a {
 
     &__sub {
       padding-top: 10px;
-      .mj-menu-item--submenu {
+      .zz-menu-item--submenu {
         border-left: 2px solid transparent;
         &.active {
           border-left: 2px solid #fff;
           background-color: transparent;
         }
-        .mj-menu-item__icon {
+        .zz-menu-item__icon {
           line-height: 32px;
         }
       }
 
-      .mj-menu-item__link {
+      .zz-menu-item__link {
         height: 32px;
         line-height: 32px;
         font-size: 12px;
@@ -259,7 +263,7 @@ a {
   }
 }
 
-.mj-menu-item {
+.zz-menu-item {
   font-size: 14px;
   letter-spacing: 1px;
   user-select: none;
@@ -269,7 +273,7 @@ a {
     position: relative;
     padding: 0;
 
-    .mj-menu-item__icon {
+    .zz-menu-item__icon {
       position: absolute;
       right: 10px;
       top: 0;
@@ -308,12 +312,13 @@ a {
     cursor: pointer;
   }
 }
-.mj-main-view {
+.zz-main-view {
   display: flex;
   width: 100%;
   height: 100%;
+  background: #eee;
 }
-.mj-layout-buttons {
+.zz-layout-buttons {
   // margin-bottom: 20px;
 }
 
@@ -417,7 +422,7 @@ a {
   }
 }
 
-.mj-navbar {
+.zz-navbar {
   overflow: hidden;
   display: flex;
   flex: 1;
@@ -440,7 +445,7 @@ a {
     border-right: 1px solid #eee;
   }
 }
-.mj-user-card {
+.zz-user-card {
   display: flex;
   // width: 120px;
   margin-left: 30px;
@@ -465,7 +470,7 @@ a {
     margin-right: 5px;
   }
 }
-.mj-user-card--popover {
+.zz-user-card--popover {
   &__head {
     margin-left: 10px;
     height: 36px;
@@ -514,7 +519,7 @@ a {
     }
   }
 }
-.mj-navbar-tab {
+.zz-navbar-tab {
   min-width: 130px;
   height: 50px;
   box-sizing: border-box;

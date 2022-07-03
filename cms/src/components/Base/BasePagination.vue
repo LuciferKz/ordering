@@ -11,44 +11,44 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from 'vue'
+import { ref, defineComponent, computed } from "vue";
 
 export default defineComponent({
   props: {
-    currentPage: {
+    offset: {
       type: Number,
-      default: 1
+      default: 0,
     },
     props: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     events: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     pagination: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
-  emits: ['size-change', 'current-change'],
+  emits: ["size-change", "current-change"],
 
   setup(props) {
-    const page = ref(props.currentPage)
+    const page = ref(props.currentPage);
     const pageProps = computed(() => ({
-      pageSize: props.pagination.pageSize,
-      currentPage: props.pagination.pageIndex,
+      limit: props.pagination.limit,
+      currentPage: props.pagination.offset / 10 + 1,
       total: 0,
-      ...props.props
-    }))
+      ...props.props,
+    }));
 
     return {
       page,
-      pageProps
-    }
-  }
-})
+      pageProps,
+    };
+  },
+});
 </script>
 
 <style lang="scss">

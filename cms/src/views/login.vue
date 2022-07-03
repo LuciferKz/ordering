@@ -1,12 +1,12 @@
 <template>
-  <section class="mj-login">
-    <section class="mj-login__content">
+  <section class="zz-login">
+    <section class="zz-login__content">
       <h3>点餐系统管理平台登录</h3>
       <base-form
         ref="refForm"
         v-bind="baseForm"
       ></base-form>
-      <div class="mj-login__buttons">
+      <div class="zz-login__buttons">
         <base-buttons v-bind="baseButtons"></base-buttons>
       </div>
     </section>
@@ -15,9 +15,11 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import $cookie from "@/utils/cookie";
 import { useBaseForm, useBaseButtons } from "@/hooks/index";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { login } from "@/api/auth";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   props: {
@@ -28,15 +30,24 @@ export default defineComponent({
   },
   setup(props, context) {
     const router = useRouter();
+    const store = useStore();
+
     const baseForm = useBaseForm({
       formItems: [
         {
           label: "用户名",
           prop: "name",
+          props: {
+            autocomplete: "off",
+          },
         },
         {
           label: "密码",
           prop: "password",
+          props: {
+            type: "password",
+            autocomplete: "off",
+          },
         },
       ],
       rules: {
@@ -49,17 +60,23 @@ export default defineComponent({
       buttons: [{ key: "login", label: "登录" }],
       events: {
         login: function () {
-          refForm.value.getData(() => {
-            console.log(baseForm);
-            router.push("/store");
+          refForm.value.getData(async (data: any) => {
+            if (data) {
+              const res = await login(data);
+              if (res.success) {
+                ElMessage.success(res.message);
+                store.dispatch("login", res.data);
+                router.push("/store");
+              } else {
+                ElMessage.warning(res.message);
+              }
+            }
           });
         },
       },
     });
 
     const refForm = ref(null);
-
-    console.log(baseButtons);
     return {
       baseForm,
       baseButtons,
@@ -70,7 +87,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.mj-login {
+.zz-login {
   display: flex;
   height: 100%;
   background-color: #d6e9ff;

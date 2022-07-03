@@ -6,7 +6,7 @@ body {
   background-color: var(--color-primary);
 }
 
-.mj-crm-layout {
+.zz-crm-layout {
   &__sidebar {
     background-color: var(--color-layout-sidebar-bg);
   }
@@ -21,7 +21,7 @@ body {
   }
 }
 
-.mj-sidebar {
+.zz-sidebar {
   &__logo {
     i {
       background-color: #eee;
@@ -29,7 +29,7 @@ body {
   }
 }
 
-.mj-menu {
+.zz-menu {
   &__module {
     color: var(--color-menu-font);
     transition: all 0.2s linear;
@@ -54,7 +54,7 @@ body {
   }
 }
 
-.mj-menu-item {
+.zz-menu-item {
   color: var(--color-menu-item-font);
 
   &--submenu {
@@ -74,7 +74,7 @@ body {
   }
 }
 
-.mj-template {
+.zz-template {
   &--list {
     &__header {
       background: var(--color-template-header-bg);
@@ -98,7 +98,7 @@ body {
   }
 }
 
-.mj-navbar {
+.zz-navbar {
   &__btn--left,
   &__btn--right {
     border-color: var(--color-border-color);
@@ -106,7 +106,7 @@ body {
   }
 }
 
-.mj-user-card {
+.zz-user-card {
   &__name {
     color: var(--color-light);
   }
@@ -114,13 +114,13 @@ body {
     color: var(--color-light);
   }
 }
-.el-popover.el-popper.mj-user-card-content--popover {
+.el-popover.el-popper.zz-user-card-content--popover {
   background-color: var(--color-layout-header-bg);
   padding: 0;
   border-radius: 5px;
   overflow: hidden;
 }
-.mj-user-card--popover {
+.zz-user-card--popover {
   &__foot {
     border-color: var(--color-border-color);
     i,

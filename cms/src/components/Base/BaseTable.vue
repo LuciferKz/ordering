@@ -25,7 +25,7 @@
       <el-table-column
         v-for="(column, $index) in columns"
         :key="$index"
-        :label="$t(column.label)"
+        :label="column.label"
         :width="column.width || tableProps.columnWidth"
         :prop="column.prop"
         v-bind="column.props"
@@ -40,7 +40,7 @@
             placement="top"
             :disabled="!column.tip"
           >
-            <span>{{ $t(column.label) }}<i class="iconfont icon-bangzhu"></i></span>
+            <span>{{ column.label }}<i class="iconfont icon-bangzhu"></i></span>
           </el-tooltip>
         </template>
         <template
@@ -70,127 +70,132 @@
 </template>
 
 <script>
-import { getValueByPath } from '@/utils/index'
-import { ref, watch, computed, defineComponent } from 'vue'
+import { getValueByPath } from "@/utils/index";
+import { ref, watch, computed, defineComponent } from "vue";
 
 export default defineComponent({
   props: {
     table: {
       type: Object,
-      default: null
+      default: null,
     },
     data: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     columns: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     props: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     events: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     currentRow: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
 
-  emits: ['update:table', 'update:currentRow'],
+  emits: ["update:table", "update:currentRow"],
 
   setup(props, { emit }) {
-    const refBaseTable = ref(null)
+    const refBaseTable = ref(null);
 
     watch(refBaseTable, () => {
-      emit('update:table', refBaseTable)
-    })
+      emit("update:table", refBaseTable);
+    });
 
     const content = computed(() => {
       return function (scope, column) {
-        const _content = column.prop ? getValueByPath(scope.row, column.prop) : ''
-        if (_content || typeof _content === 'number') {
-          return _content
+        const _content = column.prop
+          ? getValueByPath(scope.row, column.prop)
+          : "";
+        if (_content || typeof _content === "number") {
+          return _content;
         } else if (column.props && column.props.emptyText) {
-          return column.props.emptyText
+          return column.props.emptyText;
         } else {
-          return '-'
+          return "-";
         }
-      }
-    })
+      };
+    });
 
-    return { refBaseTable, content }
+    return { refBaseTable, content };
   },
 
   data() {
     return {
-      currentRowKey: 0
-    }
+      currentRowKey: 0,
+    };
   },
 
   computed: {
     rowIndexKey() {
-      return '$index'
+      return "$index";
     },
     tableData() {
-      return this.data.map((d, idx) => ({ $index: idx, ...d }))
+      return this.data.map((d, idx) => ({ $index: idx, ...d }));
     },
     tableProps() {
       return {
-        'highlight-current-row': true,
-        ...this.props
-      }
+        "highlight-current-row": true,
+        ...this.props,
+      };
     },
     tableEvents() {
-      if (this.tableProps['highlight-current-row']) {
-        const _currentChange = this.events.currentChange
-        const currentChange = row => {
+      if (this.tableProps["highlight-current-row"]) {
+        const _currentChange = this.events.currentChange;
+        const currentChange = (row) => {
           if (row) {
-            this.currentRowKey = row[this.rowIndexKey]
+            this.currentRowKey = row[this.rowIndexKey];
           } else if (!this.tableData[this.currentRowKey]) {
-            this.currentRowKey = 0
+            this.currentRowKey = 0;
           }
 
-          this.$emit('update:currentRow', row)
+          this.$emit("update:currentRow", row);
 
-          const args = [].slice.call(arguments)
-          args.push(this.currentRowKey)
-          if (_currentChange) _currentChange.apply(this, args)
-        }
-        return { currentChange, ...this.events }
+          const args = [].slice.call(arguments);
+          args.push(this.currentRowKey);
+          if (_currentChange) _currentChange.apply(this, args);
+        };
+        return { currentChange, ...this.events };
       } else {
-        return this.events
+        return this.events;
       }
-    }
+    },
   },
 
   watch: {
     data() {
-      this.setCurrentRow(this.currentRowKey)
-    }
+      this.setCurrentRow(this.currentRowKey);
+    },
   },
 
   methods: {
     setCurrentRow(index) {
-      const currentRow = index > this.tableData.length - 1 ? this.tableData[0] : this.tableData[index]
-      this.refBaseTable.setCurrentRow(currentRow)
+      const currentRow =
+        index > this.tableData.length - 1
+          ? this.tableData[0]
+          : this.tableData[index];
+      this.refBaseTable.setCurrentRow(currentRow);
     },
     toggleRowSelection() {
-      const args = [].slice.call(arguments)
+      const args = [].slice.call(arguments);
 
       this.refBaseTable.toggleRowSelection.apply(
         this.refBaseTable,
-        args.map(idx => {
-          return this.tableData[idx]
+        args.map((idx) => {
+          return this.tableData[idx];
         })
-      )
-    }
-  }
-})
+      );
+    },
+  },
+});
 </script>
 
 <style>

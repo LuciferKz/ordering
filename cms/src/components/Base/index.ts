@@ -11,13 +11,13 @@ import BaseCustom from "./BaseCustom";
 
 const components: any = {
   BaseButtons,
-  // BaseSearch,
-  // BaseTable,
+  BaseSearch,
+  BaseTable,
   // BaseTree,
   BaseForm,
   BaseFormItem,
-  // BaseDialog,
-  // BasePagination,
+  BaseDialog,
+  BasePagination,
 
   BaseCustom,
 };

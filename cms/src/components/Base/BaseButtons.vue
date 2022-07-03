@@ -1,13 +1,13 @@
 <template>
-  <section class="mj-layout-buttons">
+  <section class="zz-layout-buttons">
     <div
-      class="mj-layout-buttons__bar"
+      class="zz-layout-buttons__bar"
       :style="barStyle"
     >
       <div
         v-for="(btn, $index) in buttons"
         :key="$index"
-        :class="{'mj-layout-buttons__group': buttons.length > 1}"
+        :class="{'zz-layout-buttons__group': buttons.length > 1}"
       >
         <base-buttons
           v-if="isArray(btn)"
@@ -85,7 +85,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.mj-layout-buttons {
+.zz-layout-buttons {
   &__bar {
     display: flex;
   }
