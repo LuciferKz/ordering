@@ -1,7 +1,7 @@
 <template>
   <section class="zz-login">
     <section class="zz-login__content">
-      <h3>点餐系统管理平台登录</h3>
+      <h3>点餐系统管理平台</h3>
       <base-form
         ref="refForm"
         v-bind="baseForm"
@@ -66,7 +66,7 @@ export default defineComponent({
               if (res.success) {
                 ElMessage.success(res.message);
                 store.dispatch("login", res.data);
-                router.push("/store");
+                router.push("/");
               } else {
                 ElMessage.warning(res.message);
               }

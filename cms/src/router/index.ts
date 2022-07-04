@@ -8,7 +8,7 @@ const SISTEM_TYPE: any = import.meta.env.VITE_APP_SISTEM_TYPE;
 const routes: any = [
   {
     path: "/",
-    redirect: "/store",
+    redirect: "/ordering/store",
   },
   {
     path: "/login",
@@ -27,12 +27,28 @@ const routes: any = [
     },
     children: [
       {
-        path: "/store",
+        path: "/ordering/store",
         name: "Store",
         meta: {
           title: "门店管理",
         },
         component: () => import("@/views/store/index.vue"),
+      },
+      {
+        path: "/ordering/category",
+        name: "Category",
+        meta: {
+          title: "类别管理",
+        },
+        component: () => import("@/views/category/index.vue"),
+      },
+      {
+        path: "/ordering/product",
+        name: "Product",
+        meta: {
+          title: "餐品管理",
+        },
+        component: () => import("@/views/product/index.vue"),
       },
     ],
   },

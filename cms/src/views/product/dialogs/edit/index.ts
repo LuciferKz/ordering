@@ -4,38 +4,32 @@ export default function ({
   form = {},
   handleCancel,
   handleConfirm,
+  categories,
 }: any) {
   return {
     name: dialogname,
     props: {
-      title: "添加门店",
+      title: "添加商品",
       showClose: false,
     },
     body: {
       form,
       formItems: [
-        { label: "门店名称", prop: "name" },
+        { label: "餐品名称", prop: "name" },
         {
-          label: "营业时间",
-          prop: "opening_time",
-          type: "time-picker",
-          props: {
-            isRange: true,
-            startPlaceholder: "开始时间",
-            endPlaceholder: "结束时间",
-            format: "HH:mm:ss",
-            valueFormat: "HH:mm:ss",
-          },
+          label: "餐品品类",
+          prop: "category_id",
+          type: "select",
+          props: { options: categories, map: { label: "name", value: "id" } },
         },
-        { label: "桌位数量", prop: "table_count", type: "inputNumber" },
         {
-          label: "是否开启手机点餐",
-          prop: "open_mobile_ordering",
+          label: "是否上架",
+          prop: "on_shelf",
           type: "radio-group",
           props: {
             options: [
-              { label: "启用", value: 1 },
-              { label: "禁用", value: 0 },
+              { label: "是", value: 1 },
+              { label: "否", value: 0 },
             ],
           },
         },

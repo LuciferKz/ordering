@@ -11,32 +11,6 @@ function toInt(str) {
   return parseInt(str, 10) || 0;
 }
 
-function getQRCode(store, archive) {
-  return new Promise(async (resolve, reject) => {
-    let table_count = store.table_count;
-
-    const zipStream = fs.createWriteStream("./tmp/qrcode.zip");
-
-    archive.pipe(zipStream);
-    archive.on("finish", (result) => {
-      resolve(archive);
-    });
-
-    while (table_count > 0) {
-      table_count--;
-      const imgData = await QRCode.toDataURL(
-        `http://127.0.0.1:7001/mobile-ordering/${store.id}/${table_count}`
-      );
-      var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-      var dataBuffer = Buffer.from(base64Data, "base64");
-      // console.log(dataBuffer);
-      archive.append(dataBuffer, { name: `${table_count}.png` });
-    }
-
-    archive.finalize();
-  });
-}
-
 // const createRule = {
 //   name: { type: "string", required: true },
 //   password: { type: "string", required: true },
@@ -46,6 +20,7 @@ class StoreController extends Controller {
   async index() {
     const ctx = this.ctx;
     const query = {
+      where: ctx.params,
       limit: toInt(ctx.query.limit),
       offset: toInt(ctx.query.offset),
     };

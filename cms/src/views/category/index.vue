@@ -7,29 +7,27 @@ import { ref, reactive, defineComponent, onMounted } from "vue";
 import { useTemplateTable } from "@/hooks/index";
 import { useMessager } from "@/hooks/index";
 import {
-  getProducts,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from "@/api/product";
-
-import { getCategories } from "@/api/category";
-import { setReactiveArray } from "@/utils";
+  getCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "@/api/category";
 
 import getEditDialog from "./dialogs/edit";
 
 import { mix } from "@/utils";
 import dayjs from "dayjs";
+import download from "@/utils/download";
 
 export default defineComponent({
   setup() {
-    const categories = reactive([]);
     const editForm: any = reactive({});
 
     const messager = useMessager();
+    ///
 
     const query = async () => {
-      const res = await getProducts({
+      const res = await getCategories({
         ...baseSearch.filter,
         ...basePagination.pagination,
       });
@@ -50,9 +48,10 @@ export default defineComponent({
       let data = await dialogRef.getData();
       if (id) {
         data.id = id;
+        data.status = 0;
       }
       if (!data) return;
-      const api = id ? updateProduct(data) : createProduct(data);
+      const api = id ? updateCategory(data) : createCategory(data);
 
       const res: any = await api;
       messager({
@@ -70,13 +69,7 @@ export default defineComponent({
       formItems: [
         {
           prop: "name",
-          label: "餐品名称",
-        },
-        {
-          prop: "category_id",
-          label: "餐品类别",
-          type: "select",
-          props: { options: categories, map: { label: "name", value: "id" } },
+          label: "品类名称",
         },
       ],
       events: {
@@ -102,7 +95,7 @@ export default defineComponent({
         },
         async delete() {
           if (!isCheckedRow()) return;
-          const res = await deleteProduct(baseTable.currentRow.id);
+          const res = await deleteCategory(baseTable.currentRow.id);
           if (res.success) {
             query();
             messager.success(res.message);
@@ -115,17 +108,8 @@ export default defineComponent({
 
     const table = {
       columns: [
-        { label: "餐品ID", prop: "id", width: 70 },
-        { label: "餐品名称", prop: "name" },
-        { label: "餐品品类", prop: "category.name", width: 170 },
-        {
-          label: "是否上架",
-          prop: "on_shelf",
-          width: 100,
-          formatter: function ({ row }) {
-            return row.on_shelf === 1 ? "已上架" : "未上架";
-          },
-        },
+        { label: "类别ID", prop: "id", width: 70 },
+        { label: "类别名称", prop: "name" },
         {
           label: "创建时间",
           prop: "created_at",
@@ -163,7 +147,9 @@ export default defineComponent({
 
     const dialogAdd = getEditDialog({
       form: {
-        on_shelf: 1,
+        open_mobile_ordering: 1,
+        opening_time: ["09:30:00", "22:00:00"],
+        table_count: 10,
       },
       dialogname: "dialogAdd",
       handleCancel() {
@@ -173,7 +159,6 @@ export default defineComponent({
         saveData();
         query();
       },
-      categories,
     });
 
     const dialogEdit = getEditDialog({
@@ -186,7 +171,6 @@ export default defineComponent({
         saveData(baseTable.currentRow.id);
         query();
       },
-      categories,
     });
 
     const templateTable = useTemplateTable({
@@ -202,11 +186,6 @@ export default defineComponent({
     ///
     onMounted(() => {
       query();
-      getCategories({ limit: 100 }).then((res: any) => {
-        if (res.success) {
-          setReactiveArray(categories, res.data.rows);
-        }
-      });
     });
 
     return {

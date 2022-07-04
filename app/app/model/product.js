@@ -1,5 +1,7 @@
 ("use strict");
 
+const Category = require("./category");
+
 module.exports = (app) => {
   const { STRING, INTEGER, DATE } = app.Sequelize;
 
@@ -17,5 +19,11 @@ module.exports = (app) => {
     updated_at: DATE,
   });
 
+  Product.associate = function () {
+    app.model.Product.belongsTo(app.model.Category, {
+      as: "category",
+      foreignKey: "category_id",
+    });
+  };
   return Product;
 };
