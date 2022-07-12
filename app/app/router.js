@@ -12,6 +12,11 @@ module.exports = (app) => {
 
   router.resources("category", "/api/v1/category", controller.category);
   router.resources("product", "/api/v1/product", controller.product);
+  router.resources(
+    "menu-product",
+    "/api/v1/menu-product",
+    controller.menuProduct
+  );
 
   router.get("/api/v1/auth", controller.auth.index);
   router.post("/api/v1/auth/login", controller.auth.login);
