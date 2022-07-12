@@ -119,14 +119,6 @@ export default defineComponent({
         { label: "餐品名称", prop: "name" },
         { label: "餐品品类", prop: "category.name", width: 170 },
         {
-          label: "是否上架",
-          prop: "on_shelf",
-          width: 100,
-          formatter: function ({ row }) {
-            return row.on_shelf === 1 ? "已上架" : "未上架";
-          },
-        },
-        {
           label: "创建时间",
           prop: "created_at",
           formatter: function ({ row }) {

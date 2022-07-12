@@ -14,11 +14,15 @@ import {
   exportQrcode,
 } from "@/api/store";
 
+import { createMenuProduct } from "@/api/menu_product";
+
 import getEditDialog from "./dialogs/edit";
 
 import { mix } from "@/utils";
 import dayjs from "dayjs";
 import download from "@/utils/download";
+import getOnshelfDialog from "./dialogs/onshelf/index";
+import getMenuDialog from "./dialogs/menu/index";
 
 export default defineComponent({
   setup() {
@@ -88,6 +92,8 @@ export default defineComponent({
         "delete",
         { key: "toggle", label: "启用/禁用" },
         { key: "exportQrcode", label: "导出桌位二维码" },
+        { key: "onshelf", label: "上架餐品" },
+        { key: "checkMenu", label: "查看菜单" },
       ],
       events: {
         add() {
@@ -132,6 +138,14 @@ export default defineComponent({
           const res = await exportQrcode(baseTable.currentRow.id);
           download(res, `${baseTable.currentRow.name}桌位二维码.zip`);
           // console.log(res);
+        },
+        onshelf() {
+          if (!isCheckedRow()) return;
+          refs.dialogOnshelf.open();
+        },
+        checkMenu() {
+          if (!isCheckedRow()) return;
+          refs.dialogMenu.open();
         },
       },
     };
@@ -219,12 +233,49 @@ export default defineComponent({
       },
     });
 
+    const dialogOnshelf = getOnshelfDialog({
+      dialogname: "dialogOnshelf",
+      handleCancel() {
+        refs.dialogOnshelf.close();
+      },
+      async handleOnshelf() {
+        console.log("handleOnshelf");
+        const products = await refs.dialogOnshelf.getData();
+        const res = await createMenuProduct(
+          products.map((product) => {
+            return {
+              product_id: product.id,
+              store_id: baseTable.currentRow.id,
+              on_shelf: 1,
+            };
+          })
+        );
+        if (res.success) {
+          messager.success(res.message);
+        } else {
+          messager.warning(res.message);
+        }
+        refs.dialogOnshelf.close();
+      },
+    });
+
+    const dialogMenu = getMenuDialog({
+      dialogname: "dialogMenu",
+      handleCancel() {
+        refs.dialogMenu.close();
+      },
+      handleConfirm() {
+        // saveData(baseTable.currentRow.id);
+        // query();
+      },
+    });
+
     const templateTable = useTemplateTable({
       baseSearch: search,
       baseTable: table,
       baseButtons: buttons,
       basePagination: pagination,
-      baseDialog: [dialogAdd, dialogEdit],
+      baseDialog: [dialogAdd, dialogEdit, dialogOnshelf, dialogMenu],
     });
     const { refs, baseSearch, baseTable, basePagination } = templateTable;
     console.log("templateTable", templateTable);

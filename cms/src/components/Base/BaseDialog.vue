@@ -16,7 +16,7 @@
       </template>
       <slot>
         <template v-if="rendered">
-          <el-scrollbar :max-height="body.props?.height || '400px'">
+          <el-scrollbar :max-height="body.props?.height ? `${ body.props?.height }px` : '400px'">
             <div style="padding: 0 20px;">
               <component
                 :is="body.component"
