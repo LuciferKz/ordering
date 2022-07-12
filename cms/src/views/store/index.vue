@@ -145,7 +145,13 @@ export default defineComponent({
         },
         checkMenu() {
           if (!isCheckedRow()) return;
-          refs.dialogMenu.open();
+          refs.dialogMenu.open({
+            body: {
+              props: {
+                id: baseTable.currentRow.id,
+              },
+            },
+          });
         },
       },
     };
