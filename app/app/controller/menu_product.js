@@ -28,6 +28,15 @@ class MenuProductController extends Controller {
         {
           model: ctx.model.Product,
           attributes: ["name"],
+          as: "detail",
+
+          include: [
+            {
+              model: ctx.model.Category,
+              attributes: ["id", "name"],
+              as: "category",
+            },
+          ],
         },
       ],
       limit: toInt(limit),

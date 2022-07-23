@@ -55,12 +55,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== "Login" && !$cookie.get("token")) {
+  document.title = `${to.meta.title}`;
+  if (to.name !== "Auth" && !$cookie.get("token")) {
     // ElMessage.warning("请登录后在进行访问");
     next("/login");
+  } else {
+    next();
   }
-  document.title = `${to.meta.title}`;
-  next();
 });
 
 export default router;

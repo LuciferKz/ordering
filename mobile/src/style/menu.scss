@@ -1,0 +1,238 @@
+.clubcard {
+  position: relative;
+  height: 100px;
+  background: url('../assets/sh/bg.svg') center center no-repeat #DBBF82;
+  background-size: cover;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  transition: all .1s linear;
+
+  dl {
+    display: flex;
+    position: relative;
+    max-width: 750px;
+    height: 100%;
+    margin: 0 auto;
+    border-top: 1px solid transparent;
+
+    .user-avatar {
+      position: relative;
+      margin: 0.3rem 0.5rem 0 1rem;
+      width: 3rem;
+      height: 4rem;
+      background-image: url('../assets/sh/defaultHead.svg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      -webkit-transition: all .1s linear;
+      -o-transition: all .1s linear;
+      transition: all .1s linear;
+
+      &__img {
+        position: absolute;
+        top: 1.2rem;
+        left: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        -webkit-transition: all .1s linear;
+        -o-transition: all .1s linear;
+        transition: all .1s linear;
+        -webkit-transform: translate(-50%,0);
+        -ms-transform: translate(-50%,0);
+        -o-transform: translate(-50%,0);
+        transform: translate(-50%,0);
+      }
+    }
+    .store-info {
+      margin-top: 27px;
+      color: #FFF;
+      -webkit-transition: all .1s linear;
+      -o-transition: all .1s linear;
+      transition: all .1s linear;
+
+      .brand-name {
+        font-size: 16px;
+        color: #FFF;
+        text-align: left;
+      }
+      
+      .desk-no {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #FFF;
+        letter-spacing: 1px;
+      }
+
+      .store-name {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+    }
+
+    .my-order {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      right: -18px;
+      width: 112px;
+      height: 36px;
+      margin-top: -18px;
+      padding-left: 10px;
+      background: rgba(123,80,39,.44);
+      border-radius: 30px;
+      line-height: 36px;
+      color: #FFF;
+      font-size: 14px;
+
+      .el-icon {
+        display: flex;
+        margin-right: 10px;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.menu {
+  width: 100%;
+  height: 100%;
+
+  &__body {
+    display: flex;
+    position: absolute;
+    top: 100px;
+    bottom: 48px;
+    width: 100%;
+
+    .menu-category {
+      width: 60px;
+      line-height: 50px;
+      background-color: #eee;
+      color: #333;
+      font-size: 14px;
+      letter-spacing: 1px;
+
+      .active {
+        background-color: #FFF;
+      }
+    }
+
+    .menu-list {
+      overflow: auto;
+      flex: 1;
+
+      &__category-name {
+        text-align: left;
+        padding: 10px 25px 0;
+        font-size: 16px;
+      }
+
+      &__products {
+        // display: flex;
+        padding: 0 20px;
+      }
+      .product {
+        flex: 1;
+        display: flex;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #eee;
+
+        &__image {
+          width: 120px;
+          height: 120px;
+
+          img {
+            display: flex;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        &__info {
+          position: relative;
+          flex: 1;
+          text-align: left;
+          padding-left: 10px;
+        }
+
+        &__name {
+          line-height: 32px;
+          font-size: 18px;
+          color: #333;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+        &__detail {
+          color: #999;
+          font-size: 14px;
+        }
+
+        &__shopping {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          right: -10px;
+          bottom: 0;
+          color: #333;
+
+          .el-icon {
+            display: flex;
+            align-items: center;
+          }
+          span {
+            margin: 0 5px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    padding: 0;
+    background: #555454;
+    box-shadow: 0 2px 10px 0 rgb(197 197 197 / 50%);
+    transition: height linear .5s;
+    
+    .shopcart {
+      display: flex;
+      // align-items: center;
+
+      &__icon {
+        display: flex;
+        align-items: center;
+        // padding-top: 20px;
+      }
+
+      &__badge {
+        padding-top: 5px;
+        .shopbadge {
+          height: 15px;
+          line-height: 15px;
+          min-width: 15px;
+          padding: 0 2px;
+          margin-left: 0;
+          font-size: 12px;
+          border-radius: 10px;
+          vertical-align: top;
+          display: inline-block;
+          text-align: center;
+          transition: -webkit-transform .3s;
+          -webkit-transition: -webkit-transform .3s;
+          background: linear-gradient(-90deg,#FA6242 13%,#F54442 87%);
+          color: #fff;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 // import Vue from 'vue'
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import store from "@/store";
+// import store from "@/store";
 import $cookie from "./cookie";
 import { ElMessage } from "element-plus";
 
@@ -14,7 +14,7 @@ const service: AxiosInstance = axios.create({
 
 // request interceptor
 service.interceptors.request.use(
-  (config) => {
+  (config: any) => {
     config.headers["Content-Type"] =
       config.headers["Content-Type"] || "application/json";
 
@@ -33,7 +33,7 @@ service.interceptors.response.use(
     if (response.data.code === 403) {
       if ($cookie.get("token")) {
         ElMessage.error(response.data.msg);
-        store.dispatch("logout");
+        // store.dispatch("logout");
       }
     }
     // store.dispatch('closeLoading')

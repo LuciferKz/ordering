@@ -42,8 +42,8 @@ export default defineComponent({
     const refTable = ref(null);
     const baseTable = useBaseTable({
       columns: [
-        { label: "餐品名称", prop: "product.name" },
-        { label: "餐品品类", prop: "category.name" },
+        { label: "餐品名称", prop: "detail.name" },
+        { label: "餐品品类", prop: "detail.category.name" },
       ],
       data: [],
       props: { selection: true },

@@ -1,0 +1,31 @@
+@import './menu.scss';
+/** update by kim.zhang */
+@media all and (min-width: 320px) { html { font-size: 17.07px !important; }
+  .side-menu a .name { font-size: 12px; } }
+
+@media all and (min-width: 360px) { html { font-size: 19.2px !important; }
+  .side-menu a .name { font-size: 14px; } }
+
+@media all and (min-width: 375px) { html { font-size: 20px !important; } }
+
+@media all and (min-width: 410px) { html { font-size: 21.85px !important; } }
+
+@media all and (min-width: 480px) { html { font-size: 25.6px !important; } }
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font: inherit;
+  font-size: 100%;
+}
+h1, h2, h3, h4, h5 {
+  color: #000;
+  font-weight: 500;
+  font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  line-height: 1.2;
+}
+p {
+  margin: 0 0 10px;
+}

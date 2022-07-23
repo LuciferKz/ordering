@@ -18,6 +18,7 @@ module.exports = (app) => {
 
   MenuProduct.associate = function () {
     app.model.MenuProduct.belongsTo(app.model.Product, {
+      as: "detail",
       sourceKey: "id",
       foreignKey: "product_id",
     });
