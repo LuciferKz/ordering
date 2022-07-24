@@ -26,9 +26,9 @@ const Scroller = function (opts = {}) {
 
     if (!isScrolling) {
       clearInterval(timer);
-    }
 
-    if (onScroll) onScroll();
+      if (onScroll) onScroll();
+    }
     isScrolling = false;
   };
 

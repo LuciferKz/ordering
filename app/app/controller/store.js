@@ -30,7 +30,8 @@ class StoreController extends Controller {
 
   async show() {
     const ctx = this.ctx;
-    ctx.body = await ctx.model.Store.findByPk(toInt(ctx.params.id));
+    const store = await ctx.model.Store.findByPk(toInt(ctx.params.id));
+    ctx.body = message.success("获取门店信息成功", store);
   }
 
   async create() {

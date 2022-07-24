@@ -13,20 +13,17 @@
           <h2
             class="brand-name"
             @click="auth()"
-            v-if="!User.memberId"
+            v-if="!userInfo.memberId"
           >
-            <span>登录/领取</span>
+            <span>登录 / 授权</span>
             <label
-              class="desk-no ng-binding"
-              v-if="SysInfo.deskId &amp;&amp; SysInfo.deskId > 0"
+              class="desk-no"
+              v-if="storeInfo.deskId && storeInfo.deskId > 0"
             >1号桌</label>
           </h2>
           <p class="store-name">
-            <span
-              class="ng-binding"
-              @click="showStoreModel()"
-            >
-              请选择门店<el-icon :size="20">
+            <span @click="showStoreModel()">
+              {{ storeInfo.name }}<el-icon :size="20">
                 <Location style="width: 1em; height: 1em; margin-left: 3px; vertical-align: middle;" />
               </el-icon>
             </span>
@@ -96,7 +93,10 @@
     <section class="menu__footer">
       <div>
       </div>
-      <div class="shopcart">
+      <div
+        class="shopcart"
+        @click="handleOpenShoppingCart"
+      >
         <!-- <i class="icon-shopping-cart"></i> -->
         <div class="shopcart__icon">
           <el-icon>
@@ -107,36 +107,64 @@
           <em
             class="shopbadge ng-binding"
             id="shopbadge"
-          >0</em>
+          >{{ shoppingCount }}</em>
         </div>
       </div>
     </section>
+    <el-drawer
+      v-model="drawer"
+      direction="btt"
+      :append-to-body="true"
+      size="90%"
+    >
+      <template #title>
+        <span style="flex: 1;">购物车</span>
+      </template>
+      <div class="shopping-cart">
+        <div
+          class="shopping-cart__item"
+          v-for="product in shoppingCartProducts"
+          :key="product.id"
+        >
+          <div class="shopping-cart__name">{{ product.detail.name }}</div>
+          <div class="shopping-cart__shopping">
+            <el-icon
+              @click="handleShopping(product, -1)"
+              v-if="product.shopping > 0"
+            >
+              <RemoveFilled style="width: 20px; height: 20px; margin-left: 3px;" />
+            </el-icon>
+            <span v-if="product.shopping > 0">{{ product.shopping }}</span>
+            <el-icon @click="handleShopping(product, 1)">
+              <CirclePlusFilled style="width: 20px; height: 20px; margin-left: 3px;" />
+            </el-icon>
+          </div>
+        </div>
+      </div>
+      <template #footer>
+        <div class="shopping-cart__footer">
+          <div></div>
+          <!-- <el-button @click="cancelClick">cancel</el-button> -->
+          <div class="confirm-button">确认下单</div>
+        </div>
+      </template>
+    </el-drawer>
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, nextTick } from "vue";
-import { getMenuProducts } from "@/api";
+import { getMenuProducts, getStore } from "@/api";
 import Scroller from "@/utils/scroller.js";
-import { clone } from "@/utils/";
+import { clone, mix } from "@/utils/";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
-    const SysInfo = reactive({
-      userInfo: {},
-    });
-
-    const User = reactive({});
-
-    const Stores = reactive({
-      store: {},
-    });
-
-    const isWaterfall = ref(false);
-    const hideViewModeAlert = ref(false);
-
-    const auth = function () {};
-    const showStoreModel = function () {};
+    const route = useRoute();
+    const { storeId } = route.query;
+    const userInfo = reactive({});
+    const storeInfo = reactive({});
 
     const categories = reactive({
       map: {},
@@ -157,8 +185,35 @@ export default defineComponent({
       if (!flag) _scroller.value.scrollTo(refCategories.value[idx].offsetTop);
     };
 
+    const shoppingCartProducts = reactive({});
+
+    const shoppingCount = ref(0);
+
     const handleShopping = function (product, n) {
       product.shopping = product.shopping + n;
+
+      if (product.shopping > 0) {
+        if (!shoppingCartProducts[product.id]) {
+          shoppingCartProducts[product.id] = product;
+        }
+      } else {
+        if (shoppingCartProducts[product.id]) {
+          delete shoppingCartProducts[product.id];
+        }
+      }
+
+      shoppingCount.value = Object.values(shoppingCartProducts)
+        .map((p) => p.shopping)
+        .reduce((a, b) => {
+          return a + b;
+        });
+
+      // console.log(shoppingCartProducts);
+    };
+
+    const drawer = ref(false);
+    const handleOpenShoppingCart = function () {
+      drawer.value = true;
     };
 
     const init = function () {
@@ -206,21 +261,26 @@ export default defineComponent({
           init();
         });
       });
+
+      getStore({ id: storeId }).then((res) => {
+        if (res.success) {
+          mix(storeInfo, res.data);
+        }
+      });
     });
 
     return {
-      SysInfo,
-      User,
-      Stores,
-      isWaterfall,
-      hideViewModeAlert,
+      userInfo,
+      storeInfo,
       categories,
+      shoppingCartProducts,
+      shoppingCount,
 
-      auth,
-      showStoreModel,
+      drawer,
 
       handleSwitchCategory,
       handleShopping,
+      handleOpenShoppingCart,
 
       refCategories,
       refMenuList,

@@ -1,0 +1,35 @@
+.shopping-cart {
+  &__item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #666;
+    padding: 10px 0;
+  }
+  &__shopping {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin: 0 5px;
+    }
+  }
+}
+
+.shopping-cart__footer {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  background: #666;
+}
+
+.confirm-button {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  background: linear-gradient(-90deg,#FA6242 13%,#F54442 87%);
+}
