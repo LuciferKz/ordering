@@ -18,15 +18,16 @@
             <span>登录 / 授权</span>
             <label
               class="desk-no"
-              v-if="storeInfo.deskId && storeInfo.deskId > 0"
-            >1号桌</label>
+              v-if="storeInfo.deskNo && storeInfo.deskNo > 0"
+            >{{ storeInfo.deskNo }}号桌</label>
           </h2>
           <p class="store-name">
             <span @click="showStoreModel()">
-              {{ storeInfo.name }}<el-icon :size="20">
-                <Location style="width: 1em; height: 1em; margin-left: 3px; vertical-align: middle;" />
-              </el-icon>
+              {{ storeInfo.name }}
             </span>
+            <el-icon :size="20">
+              <Location style="width: 1em; height: 1em; margin-left: 3px; vertical-align: middle;" />
+            </el-icon>
           </p>
         </dd>
         <dd
@@ -162,9 +163,11 @@ import { useRoute } from "vue-router";
 export default defineComponent({
   setup() {
     const route = useRoute();
-    const { storeId } = route.query;
+    const { storeId, deskNo } = route.query;
     const userInfo = reactive({});
-    const storeInfo = reactive({});
+    const storeInfo = reactive({
+      deskNo,
+    });
 
     const categories = reactive({
       map: {},
@@ -234,6 +237,10 @@ export default defineComponent({
       });
     };
 
+    const auth = function () {
+      console.log("123");
+    };
+
     onMounted(() => {
       getMenuProducts().then((res) => {
         res.data.rows.forEach((row) => {
@@ -281,6 +288,8 @@ export default defineComponent({
       handleSwitchCategory,
       handleShopping,
       handleOpenShoppingCart,
+
+      auth,
 
       refCategories,
       refMenuList,
