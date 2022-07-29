@@ -78,11 +78,11 @@
                     @click="handleShopping(product, -1)"
                     v-if="product.shopping > 0"
                   >
-                    <RemoveFilled style="width: 1em; height: 1em; margin-left: 3px;" />
+                    <RemoveFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
                   </el-icon>
                   <span v-if="product.shopping > 0">{{ product.shopping }}</span>
                   <el-icon @click="handleShopping(product, 1)">
-                    <CirclePlusFilled style="width: 1em; height: 1em; margin-left: 3px;" />
+                    <CirclePlusFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
                   </el-icon>
                 </div>
               </div>
@@ -101,7 +101,7 @@
         <!-- <i class="icon-shopping-cart"></i> -->
         <div class="shopcart__icon">
           <el-icon>
-            <ShoppingCart style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
+            <ShoppingCart style="width: 2em; height: 2em; margin-left: 3px;" />
           </el-icon>
         </div>
         <div class="shopcart__badge">
@@ -133,11 +133,11 @@
               @click="handleShopping(product, -1)"
               v-if="product.shopping > 0"
             >
-              <RemoveFilled style="width: 20px; height: 20px; margin-left: 3px;" />
+              <RemoveFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
             </el-icon>
             <span v-if="product.shopping > 0">{{ product.shopping }}</span>
             <el-icon @click="handleShopping(product, 1)">
-              <CirclePlusFilled style="width: 20px; height: 20px; margin-left: 3px;" />
+              <CirclePlusFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
             </el-icon>
           </div>
         </div>

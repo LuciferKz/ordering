@@ -179,6 +179,7 @@
           right: -10px;
           bottom: 0;
           color: #333;
+          font-size: 32px;
 
           .el-icon {
             display: flex;
@@ -213,6 +214,8 @@
       &__icon {
         display: flex;
         align-items: center;
+        font-size: 32px;
+        color: #fff;
         // padding-top: 20px;
       }
 

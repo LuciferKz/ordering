@@ -52,13 +52,13 @@ const routes: any = [
       },
     ],
   },
-  {
-    path: "/404",
-    meta: {
-      title: "404",
-    },
-    component: () => import("@/views/404.vue"),
-  },
+  // {
+  //   path: "/404",
+  //   meta: {
+  //     title: "404",
+  //   },
+  //   component: () => import("@/views/404.vue"),
+  // },
   { path: "/:pathMatch(.*)", redirect: "/404" },
 ];
 
