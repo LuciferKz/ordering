@@ -4,7 +4,7 @@ import store from "@/store";
 import $cookie from "./cookie";
 import { ElMessage } from "element-plus";
 
-const BASE_URL: any = "http://127.0.0.1:7001/api/v1";
+const BASE_URL: any = "http://www.zhangzhenkai.com/ordering/api/api/v1";
 
 // create an axios instance
 const service: AxiosInstance = axios.create({
