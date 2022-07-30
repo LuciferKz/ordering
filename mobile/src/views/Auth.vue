@@ -22,7 +22,7 @@ export default defineComponent({
         access_token,
         openId
       }).then((res) => {
-        store.dispatch('changeUser', res.result)
+        store.dispatch('changeUser', JSON.parse(res.result))
         router.push("/menu");
       })
     }

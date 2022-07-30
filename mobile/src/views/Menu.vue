@@ -6,16 +6,16 @@
           <img
             class="user-avatar__img"
             alt=""
-            src="../assets/sh/defaultHeadPic.svg"
+            :src="userInfo.headimgurl || '../assets/sh/defaultHeadPic.svg'"
           >
         </dt>
         <dd class="store-info">
           <h2
             class="brand-name"
             @click="auth()"
-            v-if="!userInfo.memberId"
+            v-if="!userInfo.openid"
           >
-            <span>登录 / 授权</span>
+            <span>{{ userInfo.nickname || '登录 / 授权' }}</span>
             <label
               class="desk-no"
               v-if="storeInfo.deskNo && storeInfo.deskNo > 0"
@@ -23,7 +23,7 @@
           </h2>
           <p class="store-name">
             <span @click="showStoreModel()">
-              {{ storeInfo.name }}
+              {{ storeInfo.name || '未选择名店' }}
             </span>
             <el-icon :size="20">
               <Location style="width: 1em; height: 1em; margin-left: 3px; vertical-align: middle;" />
@@ -154,18 +154,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted, nextTick } from "vue";
+import { defineComponent, ref, reactive, onMounted, nextTick, computed } from "vue";
 import { getMenuProducts, getStore, getWxAuth } from "@/api";
 import Scroller from "@/utils/scroller.js";
 import { clone, mix } from "@/utils/";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
     const route = useRoute();
+    const store = useStore();
     console.log(route);
     const { storeId, deskNo } = route.query;
-    const userInfo = reactive({});
+
+    const userInfo = computed(() => store.state.user.info)
     const storeInfo = reactive({
       deskNo,
     });
