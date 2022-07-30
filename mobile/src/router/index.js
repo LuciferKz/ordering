@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import $cookie from "@/utils/cookie";
 
 const routes = [
@@ -50,7 +50,7 @@ const routes = [
 
 const router = createRouter({
   linkActiveClass: "current-link",
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 

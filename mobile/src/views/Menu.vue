@@ -163,6 +163,7 @@ import { useRoute } from "vue-router";
 export default defineComponent({
   setup() {
     const route = useRoute();
+    console.log(route);
     const { storeId, deskNo } = route.query;
     const userInfo = reactive({});
     const storeInfo = reactive({
