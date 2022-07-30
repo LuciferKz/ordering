@@ -562,10 +562,10 @@
   dependencies:
     "is-number" "^7.0.0"
 
-"typescript@*", "typescript@^4.5.4":
-  "integrity" "sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ=="
-  "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz"
-  "version" "4.7.4"
+"typescript@*", "typescript@^4.8.0-dev.20220730":
+  "integrity" "sha512-cqBOl/1ho639SW4/ckhavdj5P6FVMnb6Uq/1mBvPabqvulMtX7VrUBay57lXS5ZBjUqQuz9zdUMkFOUuzRFgjw=="
+  "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.8.0-dev.20220730.tgz"
+  "version" "4.8.0-dev.20220730"
 
 "vite@^2.5.10", "vite@^2.9.9":
   "integrity" "sha512-AsOBAaT0AD7Mhe8DuK+/kE4aWYFMx/i0ZNi98hJclxb4e0OhQcZYUrvLjIaQ8e59Ui7txcvKMiJC1yftqpQoDw=="
