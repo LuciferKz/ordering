@@ -6,6 +6,7 @@
 import { defineComponent } from "vue";
 import { useStore } from "vuex";
 import { getUserInfo } from "@/api"
+import $cookie from "@/utils/cookie";
 
 export default defineComponent({
   setup() {
