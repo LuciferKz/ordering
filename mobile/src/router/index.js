@@ -43,9 +43,10 @@ const routes = [
   // { path: "/:pathMatch(.*)", redirect: "/404" },
 ];
 
+console.log(process.env.NODE_ENV)
 const router = createRouter({
   linkActiveClass: "current-link",
-  history: createWebHistory(),
+  history: createWebHistory("/ordering/mobile/"),
   routes,
 });
 
