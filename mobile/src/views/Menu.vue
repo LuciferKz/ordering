@@ -235,7 +235,7 @@ export default defineComponent({
         const idx = categoriesPositions.findIndex((p) => scrollTop >= p);
 
         handleSwitchCategory(categoriesPositions.length - 1 - idx, true);
-      });
+      }); 
     };
 
     const auth = function () {
