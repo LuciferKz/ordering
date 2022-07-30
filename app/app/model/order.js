@@ -8,6 +8,7 @@ module.exports = (app) => {
     price: INTEGER,
     status: INTEGER,
     detail: STRING(300),
+    open_id: STRING(60),
     created_at: DATE,
     updated_at: DATE,
   });

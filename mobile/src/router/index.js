@@ -56,12 +56,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title}`;
-  if (to.name !== "Auth" && !$cookie.get("token")) {
-    // ElMessage.warning("请登录后在进行访问");
-    next("/login");
-  } else {
-    next();
-  }
+  // if (to.name !== "Auth" && !$cookie.get("token")) {
+  //   // ElMessage.warning("请登录后在进行访问");
+  //   // next("/login");
+  // } else {
+  // }
+  next();
 });
 
 export default router;

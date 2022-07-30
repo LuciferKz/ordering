@@ -155,7 +155,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, nextTick } from "vue";
-import { getMenuProducts, getStore } from "@/api";
+import { getMenuProducts, getStore, getWxAuth } from "@/api";
 import Scroller from "@/utils/scroller.js";
 import { clone, mix } from "@/utils/";
 import { useRoute } from "vue-router";
@@ -239,6 +239,9 @@ export default defineComponent({
 
     const auth = function () {
       console.log("123");
+      getWxAuth().then(res => {
+        console.log(res)
+      })
     };
 
     onMounted(() => {

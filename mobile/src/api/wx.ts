@@ -1,9 +1,9 @@
 import service from "@/utils/requestWx";
 
 const api = {
-  auth: { url: "/wxAuth", method: "get" },
+  auth: { url: "/getCode", method: "get" },
 };
 
-export const auth = (data: any) => {
+export const getWxAuth = (data: any) => {
   return service({ ...api.auth, data });
 };
