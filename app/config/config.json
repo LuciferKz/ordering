@@ -19,7 +19,7 @@
     "username": "threeqone",
     "password": "threeqone@1024",
     "database": "ordering",
-    "host": "120.55.55.34",
+    "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql"
   }
