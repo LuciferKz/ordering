@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "threeqone",
-    "password": "threeqone@1024",
+    "password": "threeqone1024",
     "database": "ordering",
     "host": "120.55.55.34",
     "port": 3306,
@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "threeqone",
-    "password": "threeqone@1024",
+    "password": "threeqone1024",
     "database": "ordering_test",
     "host": "120.55.55.34",
     "port": 3306,
@@ -17,7 +17,7 @@
   },
   "production": {
     "username": "threeqone",
-    "password": "threeqone@1024",
+    "password": "threeqone1024",
     "database": "ordering",
     "host": "127.0.0.1",
     "port": 3306,
