@@ -13,7 +13,6 @@
           <h2
             class="brand-name"
             @click="auth()"
-            v-if="!userInfo.openid"
           >
             <span>{{ userInfo.nickname || '登录 / 授权' }}</span>
             <label
@@ -242,6 +241,7 @@ export default defineComponent({
     };
 
     const auth = function () {
+      if (userInfo.value.openid) return
       const _herf = encodeURI('http://www.zhangzhenkai.com/ordering/mobile/auth');
       location.href = `http://wx.zhangzhenkai.com/getCode?returnUri=${ _herf }`;
     };
