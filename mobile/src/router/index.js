@@ -4,10 +4,7 @@ import $cookie from "@/utils/cookie";
 const routes = [
   {
     path: "/",
-    redirect: "/auth",
-    meta: {
-      title: "授权",
-    },
+    redirect: "/menu",
   },
   {
     path: "/auth",
@@ -52,11 +49,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title}`;
-  // if (to.name !== "Auth" && !$cookie.get("token")) {
-  //   // ElMessage.warning("请登录后在进行访问");
-  //   // next("/login");
-  // } else {
-  // }
   next();
 });
 
