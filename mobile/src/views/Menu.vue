@@ -238,10 +238,8 @@ export default defineComponent({
     };
 
     const auth = function () {
-      console.log("123");
-      getWxAuth().then(res => {
-        console.log(res)
-      })
+      const _herf = encodeURI('http://www.zhangzhenkai.com/ordering/mobile/#/auth');
+      location.href = `http://wx.zhangzhenkai.com/getCode?returnUri=${ _herf }`;
     };
 
     onMounted(() => {
