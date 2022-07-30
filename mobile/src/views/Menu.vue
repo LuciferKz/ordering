@@ -159,13 +159,17 @@ import Scroller from "@/utils/scroller.js";
 import { clone, mix } from "@/utils/";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import $cookie from "@/utils/cookie";
 
 export default defineComponent({
   setup() {
     const route = useRoute();
     const store = useStore();
-    console.log(route);
-    const { storeId, deskNo } = route.query;
+    const storeId = route.query.storeId || $cookie.get('storeId');
+    const deskNo = route.query.deskNo || $cookie.get('deskNo');
+
+    if (storeId) $cookie.set('storeId', storeId);
+    if (deskNo) $cookie.set('deskNo', deskNo);
 
     const userInfo = computed(() => store.state.user.info)
     const storeInfo = reactive({
