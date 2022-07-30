@@ -15,7 +15,7 @@
   </el-container>
 </template>
 
-<script>
+<script lang="ts">
 import SideBar from "./components/SideBar/index.vue";
 import MainView from "./components/MainView.vue";
 import UserCard from "./components/UserCard.vue";

@@ -19,15 +19,14 @@
       "esnext",
       "dom"
     ],
-    "noImplicitAny": true, // 不允许出现隐式的 any 类型
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true // 严格属性初始化检查
+    "noImplicitAny": false, // 不允许出现隐式的 any 类型
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false // 严格属性初始化检查
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "local-config.ts"
+
   ]
 }

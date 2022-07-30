@@ -69,7 +69,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { getValueByPath } from "@/utils/index";
 import { ref, watch, computed, defineComponent } from "vue";
 

@@ -43,7 +43,7 @@ export default defineComponent({
       return true;
     };
 
-    const saveData = async (id?) => {
+    const saveData = async (id?: any) => {
       const dialogRef = id ? refs.dialogEdit : refs.dialogAdd;
       let data = await dialogRef.getData();
       if (id) {
