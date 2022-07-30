@@ -50,7 +50,7 @@ module.exports = (appInfo) => {
     username: "threeqone",
     password: "threeqone1024",
     dialect: "mysql",
-    host: "120.55.55.34",
+    host: "mysql",
     port: 3306,
     database: "ordering",
   };
