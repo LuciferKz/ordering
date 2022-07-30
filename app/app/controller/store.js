@@ -87,7 +87,7 @@ class StoreController extends Controller {
       while (table_count > 0) {
         table_count--;
         const imgData = await QRCode.toDataURL(
-          `http://127.0.0.1:5173/#/menu?storeId=${store.id}&deskNo=${
+          `http://www.zhangzhenkai.com/ordering/mobile/menu?storeId=${store.id}&deskNo=${
             table_count + 1
           }`
           // `http://127.0.0.1:7001/mobile-ordering/${store.id}${table_count}`
