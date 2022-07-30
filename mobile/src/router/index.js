@@ -1,10 +1,13 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import $cookie from "@/utils/cookie";
 
 const routes = [
   {
     path: "/",
     redirect: "/auth",
+    meta: {
+      title: "授权",
+    },
   },
   {
     path: "/auth",
@@ -29,14 +32,6 @@ const routes = [
       title: "会员中心",
     },
     component: () => import("@/views/Member.vue"),
-  },
-  {
-    path: "/auth",
-    name: "Auth",
-    meta: {
-      title: "",
-    },
-    component: () => import("@/views/Auth.vue"),
   },
   // {
   //   path: "/404",
