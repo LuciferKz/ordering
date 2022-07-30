@@ -4,7 +4,7 @@ import $cookie from "@/utils/cookie";
 const routes = [
   {
     path: "/",
-    redirect: "/menu",
+    redirect: "/auth",
   },
   {
     path: "/auth",
