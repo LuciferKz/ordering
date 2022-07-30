@@ -16,26 +16,34 @@ export default defineComponent({
     const store = useStore();
 
     const code = route.query.code || $cookie.get('code');
-    
-    if (code) {
-      getAccessToken({
-        code
-      }).then((res) => {
-        
-        const { accessToken, openid } = res.result
-        $cookie.set('token', accessToken)
-        $cookie.set('openId', openid)
 
-        getUserInfo({
-          access_token: accessToken,
-          openId: openid
-        }).then((res) => {
-          store.dispatch('changeUser', res.result)
-          router.push("/menu");
-        })
+    const handleGetUserInfo = function (access_token, openId) {
+      getUserInfo({
+        access_token,
+        openId
+      }).then((res) => {
+        store.dispatch('changeUser', res.result)
+        router.push("/menu");
       })
+    }
+
+    const token = $cookie.get('token');
+    const openid = $cookie.get('openId');
+    if (token && openid) {
+      handleGetUserInfo(token, openid)
     } else {
-      router.push("/menu");
+      if (code) {
+        getAccessToken({
+          code
+        }).then((res) => {
+          const { accessToken, openid } = res.result
+          $cookie.set('token', accessToken)
+          $cookie.set('openId', openid)
+          handleGetUserInfo(accessToken, openid)
+        })
+      } else {
+        router.push("/menu");
+      }
     }
   },
 });
