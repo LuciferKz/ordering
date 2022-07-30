@@ -239,7 +239,7 @@ export default defineComponent({
     };
 
     const auth = function () {
-      const _herf = encodeURI('http://www.zhangzhenkai.com/ordering/mobile/#/auth');
+      const _herf = encodeURI('http://www.zhangzhenkai.com/ordering/mobile/auth');
       location.href = `http://wx.zhangzhenkai.com/getCode?returnUri=${ _herf }`;
     };
 
