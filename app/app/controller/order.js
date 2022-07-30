@@ -10,19 +10,16 @@ function toInt(str) {
 class OrderController extends Controller {
   async index() {
     const ctx = this.ctx;
-    const { name, category_id, limit, offset } = ctx.query;
+    const { openId, limit, offset } = ctx.query;
     const { Op } = this.app.Sequelize;
     const where = {};
-    if (name) {
-      where.name = { [Op.like]: `%${name}%` };
+    if (openId) {
+      where.open_id = { [Op.like]: `%${openId}%` };
     }
-    if (category_id) {
-      where.category_id = category_id;
-    }
+    
     const query = {};
-
     const orders = await ctx.model.Order.findAndCountAll(query);
-    ctx.body = message.success("获取餐品列表成功", orders);
+    ctx.body = message.success("获取订单列表成功", orders);
   }
 
   async show() {
@@ -34,7 +31,7 @@ class OrderController extends Controller {
     const ctx = this.ctx;
     const order = await ctx.model.Order.create(ctx.request.body);
     ctx.status = 201;
-    ctx.body = message.success("新建餐品成功", { data: order });
+    ctx.body = message.success("下单成功", { data: order });
   }
 
   async update() {
