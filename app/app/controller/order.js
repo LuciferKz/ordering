@@ -24,10 +24,11 @@ class OrderController extends Controller {
     // orders.rows.forEach((order) => {
     //   order.statusAlias = statusAlias[order.status]
     // })
-    orders.rows.forEach((order) => {
-      order.statusAlias = '订单待支付'
+    orders.rows = orders.rows.map((order) => {
+      order.statusAlias = '订单待支付';
+      return order;
     })
-    ctx.body = message.success("获取订单列表成功", orders);
+    ctx.body = message.success("获取订单列表成功123", orders);
   }
 
   async show() {
