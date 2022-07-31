@@ -27,7 +27,7 @@ class MenuProductController extends Controller {
         },
         {
           model: ctx.model.Product,
-          attributes: ["name", "price"],
+          attributes: ["name", "price", "intro"],
           as: "detail",
 
           include: [

@@ -80,17 +80,19 @@
                 <div class="product__name">{{ product.detail.name }}</div>
                 <div class="product__detail">{{ product.detail.intro }}</div>
                 <div class="product__shopping">
-                  <span>￥{{ product.detail.price }}</span>
-                  <el-icon
-                    @click="handleShopping(product, -1)"
-                    v-if="product.shopping > 0"
-                  >
-                    <RemoveFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
-                  </el-icon>
-                  <span v-if="product.shopping > 0">{{ product.shopping }}</span>
-                  <el-icon @click="handleShopping(product, 1)">
-                    <CirclePlusFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
-                  </el-icon>
+                  <span class="product__price">￥{{ product.detail.price }}</span>
+                  <div class="product__btns">
+                    <el-icon
+                      @click="handleShopping(product, -1)"
+                      v-if="product.shopping > 0"
+                    >
+                      <RemoveFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
+                    </el-icon>
+                    <span v-if="product.shopping > 0">{{ product.shopping }}</span>
+                    <el-icon @click="handleShopping(product, 1)">
+                      <CirclePlusFilled style="width: 1.5em; height: 1.5em; margin-left: 3px;" />
+                    </el-icon>
+                  </div>
                 </div>
               </div>
             </div>
@@ -261,7 +263,7 @@ export default defineComponent({
           createOrder({
             open_id: userInfo.value.openid,
             detail: JSON.stringify(detail),
-            price: 
+            price
           })
         } else {
 

@@ -117,6 +117,12 @@ export default defineComponent({
       columns: [
         { label: "餐品ID", prop: "id", width: 70 },
         { label: "餐品名称", prop: "name" },
+        {
+          label: "餐品价格", prop: "price",
+          formatter: function ({ row }) {
+            return `￥${row.price}`;
+          }
+        },
         { label: "餐品品类", prop: "category.name", width: 170 },
         {
           label: "创建时间",

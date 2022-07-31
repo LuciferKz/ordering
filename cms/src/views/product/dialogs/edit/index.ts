@@ -34,6 +34,7 @@ export default function ({
             ],
           },
         },
+        { label: "餐品详情", prop: "intro", props: { type: "textarea" } },
         // { label: "门店状态", prop: "status" },
       ],
       rules: {
