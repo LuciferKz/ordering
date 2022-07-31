@@ -16,6 +16,7 @@ export default function ({
       form,
       formItems: [
         { label: "餐品名称", prop: "name" },
+        { label: "餐品价格", prop: "price", type: 'input-number', props: { precision: 0 } },
         {
           label: "餐品品类",
           prop: "category_id",

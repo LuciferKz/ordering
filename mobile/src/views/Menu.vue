@@ -80,6 +80,7 @@
                 <div class="product__name">{{ product.detail.name }}</div>
                 <div class="product__detail">{{ product.detail.intro }}</div>
                 <div class="product__shopping">
+                  <span>￥{{ product.detail.price }}</span>
                   <el-icon
                     @click="handleShopping(product, -1)"
                     v-if="product.shopping > 0"
@@ -130,7 +131,7 @@
       <div class="shopping-cart">
         <div
           class="shopping-cart__item"
-          v-for="product in shoppingCartProducts"
+          v-for="product in shoppingCart"
           :key="product.id"
         >
           <div class="shopping-cart__name">{{ product.detail.name }}</div>
@@ -152,7 +153,7 @@
         <div class="shopping-cart__footer">
           <div></div>
           <!-- <el-button @click="cancelClick">cancel</el-button> -->
-          <div class="confirm-button">确认下单</div>
+          <div class="confirm-button" @click="handleOrder">确认下单</div>
         </div>
       </template>
     </el-drawer>
@@ -161,7 +162,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, nextTick, computed } from "vue";
-import { getMenuProducts, getStore, getWxAuth } from "@/api";
+import { getMenuProducts, getStore, createOrder } from "@/api";
 import Scroller from "@/utils/scroller.js";
 import { clone, mix } from "@/utils/";
 import { useRoute } from "vue-router";
@@ -172,7 +173,7 @@ import { useWxAuth } from '@/hooks';
 export default defineComponent({
   setup() {
     useWxAuth();
-    
+
     const route = useRoute();
     const store = useStore();
     const storeId = route.query.storeId || $cookie.get('storeId');
@@ -205,13 +206,21 @@ export default defineComponent({
       if (!flag) _scroller.value.scrollTo(refCategories.value[idx].offsetTop);
     };
 
-    const shoppingCartProducts = reactive({});
+    const shoppingCart = computed(() => store.state.shoppingCart.cart);
 
-    const shoppingCount = ref(0);
+    const shoppingCount = computed(() => {
+      const shoppingCartProducts = Object.values(shoppingCart.value)
+        return shoppingCartProducts.length > 0 ? shoppingCartProducts
+        .map((p) => p.shopping)
+        .reduce((a, b) => {
+          return a + b;
+        }) : 0;
+    })
 
     const handleShopping = function (product, n) {
       product.shopping = product.shopping + n;
 
+      const shoppingCartProducts = shoppingCart.value;
       if (product.shopping > 0) {
         if (!shoppingCartProducts[product.id]) {
           shoppingCartProducts[product.id] = product;
@@ -222,12 +231,7 @@ export default defineComponent({
         }
       }
 
-      shoppingCount.value = Object.values(shoppingCartProducts)
-        .map((p) => p.shopping)
-        .reduce((a, b) => {
-          return a + b;
-        });
-
+      store.dispatch('changeCart', shoppingCartProducts)
       // console.log(shoppingCartProducts);
     };
 
@@ -235,6 +239,35 @@ export default defineComponent({
     const handleOpenShoppingCart = function () {
       drawer.value = true;
     };
+
+    const handleOrder = function () {
+          console.log(shoppingCart)
+      if (shoppingCount.value > 0) {
+        if (userInfo.value.openid) {
+          console.log(shoppingCart)
+          const detail = shoppingCart.value.map((p) => {
+            return {
+              id: p.id,
+              product_id: p.id,
+              name: p.detail.name,
+              shopping: p.shopping
+            }
+          })
+
+          let price = 0;
+          shoppingCart.value.forEach((p) => {
+            price += p.shopping * p.price
+          })
+          createOrder({
+            open_id: userInfo.value.openid,
+            detail: JSON.stringify(detail),
+            price: 
+          })
+        } else {
+
+        }
+      }
+    }
 
     const init = function () {
       const categoriesPositions = refCategories.value
@@ -299,7 +332,7 @@ export default defineComponent({
       userInfo,
       storeInfo,
       categories,
-      shoppingCartProducts,
+      shoppingCart,
       shoppingCount,
 
       drawer,
@@ -307,6 +340,7 @@ export default defineComponent({
       handleSwitchCategory,
       handleShopping,
       handleOpenShoppingCart,
+      handleOrder,
 
       auth,
 
