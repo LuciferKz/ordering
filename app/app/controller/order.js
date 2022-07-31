@@ -21,8 +21,11 @@ class OrderController extends Controller {
     const query = {};
     const orders = await ctx.model.Order.findAndCountAll(query);
     const statusAlias = { 1: '订单已完成', 2: '订单制作中', 3: '订单已支付', 4: '订单待支付' }
+    // orders.rows.forEach((order) => {
+    //   order.statusAlias = statusAlias[order.status]
+    // })
     orders.rows.forEach((order) => {
-      order.statusAlias = statusAlias[order.status]
+      order.statusAlias = '订单待支付'
     })
     ctx.body = message.success("获取订单列表成功", orders);
   }
