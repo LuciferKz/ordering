@@ -243,11 +243,12 @@ export default defineComponent({
     };
 
     const handleOrder = function () {
-          console.log(shoppingCart)
+          console.log(shoppingCart) 
       if (shoppingCount.value > 0) {
-        if (userInfo.value.openid) {
+        // if (userInfo.value.openid) {
           console.log(shoppingCart)
-          const detail = shoppingCart.value.map((p) => {
+          const shoppingCartProducts = Object.values(shoppingCart.value)
+          const detail = shoppingCartProducts.map((p) => {
             return {
               id: p.id,
               product_id: p.id,
@@ -257,17 +258,25 @@ export default defineComponent({
           })
 
           let price = 0;
-          shoppingCart.value.forEach((p) => {
+          shoppingCartProducts.forEach((p) => {
             price += p.shopping * p.price
           })
-          createOrder({
-            open_id: userInfo.value.openid,
-            detail: JSON.stringify(detail),
-            price
-          })
-        } else {
 
-        }
+          console.log({
+            open_id: userInfo.value.openid,
+            desk_no: deskNo,
+            detail: JSON.stringify(detail),
+            price,
+            count: shoppingCount.value
+          })
+          // createOrder({
+          //   open_id: userInfo.value.openid,
+          //   detail: JSON.stringify(detail),
+          //   price
+          // })
+        // } else {
+
+        // }
       }
     }
 

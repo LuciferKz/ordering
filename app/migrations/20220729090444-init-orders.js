@@ -12,10 +12,12 @@ module.exports = {
     const { INTEGER, DATE, STRING } = Sequelize;
     await queryInterface.createTable("orders", {
       id: { type: INTEGER, primaryKey: true, autoIncrement: true },
+      count: INTEGER,
       price: INTEGER,
       status: INTEGER,
       detail: STRING(300),
       open_id: STRING(60),
+      desk_no: INTEGER,
       created_at: DATE,
       updated_at: DATE,
     });
