@@ -22,16 +22,19 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { getOrders } from "@/api";
+import $cookie from "@/utils/cookie";
 
 export default defineComponent({
   setup() {
     const orders = ref([])
-    
-    getOrders().then((res) => {
+    const openid = $cookie.get('openId');
+    getOrders({
+      open_id: openid
+    }).then((res) => {
       if (res.success) {
-        const data = res.data
-        data.detail = JSON.parse(data.detail)
-        orders.value = data
+        orders.value = res.data.rows.map(order => {
+          order.detail = JSON.parse(order.detail)
+        })
       }
     })
 

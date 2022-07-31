@@ -259,7 +259,8 @@ export default defineComponent({
               id: p.id,
               product_id: p.id,
               name: p.detail.name,
-              shopping: p.shopping
+              shopping: p.shopping,
+              price: p.detail.price
             }
           })
 
