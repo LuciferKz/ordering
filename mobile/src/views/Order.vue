@@ -20,10 +20,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { getOrders } from "@/api";
 
 export default defineComponent({
-  setup() {},
+  setup() {
+    const orders = ref([])
+    
+    getOrders().then((res) => {
+      if (res.success) {
+        const data = res.data
+        data.detail = JSON.parse(data.detail)
+        orders.value = data
+      }
+    })
+
+    return {
+      orders
+    }
+  },
 });
 </script>
 

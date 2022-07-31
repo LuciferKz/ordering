@@ -42,7 +42,7 @@
         >
           <el-icon>
             <Document style="width: 1em; height: 1em; margin-left: 3px;" />
-          </el-icon><span>我的订单</span>
+          </el-icon><span @click="handleCheckOrders">我的订单</span>
         </dd>
       </dl>
     </section>
@@ -167,7 +167,7 @@ import { defineComponent, ref, reactive, onMounted, nextTick, computed } from "v
 import { getMenuProducts, getStore, createOrder } from "@/api";
 import Scroller from "@/utils/scroller.js";
 import { clone, mix } from "@/utils/";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import $cookie from "@/utils/cookie";
 import { useWxAuth } from '@/hooks';
@@ -177,6 +177,7 @@ export default defineComponent({
     useWxAuth();
 
     const route = useRoute();
+    const router = useRouter();
     const store = useStore();
     const storeId = route.query.storeId || $cookie.get('storeId');
     const deskNo = route.query.deskNo || $cookie.get('deskNo');
@@ -242,10 +243,14 @@ export default defineComponent({
       drawer.value = true;
     };
 
+    const handleCheckOrders = function () {
+      router.push('/order')
+    }
+
     const handleOrder = function () {
           console.log(shoppingCart) 
       if (shoppingCount.value > 0) {
-        // if (userInfo.value.openid) {
+        if (userInfo.value.openid) {
           console.log(shoppingCart)
           const shoppingCartProducts = Object.values(shoppingCart.value)
           const detail = shoppingCartProducts.map((p) => {
@@ -262,21 +267,14 @@ export default defineComponent({
             price += p.shopping * p.price
           })
 
-          console.log({
+          createOrder({
             open_id: userInfo.value.openid,
-            desk_no: deskNo,
+            desk_no: +deskNo,
             detail: JSON.stringify(detail),
             price,
             count: shoppingCount.value
           })
-          // createOrder({
-          //   open_id: userInfo.value.openid,
-          //   detail: JSON.stringify(detail),
-          //   price
-          // })
-        // } else {
-
-        // }
+        }
       }
     }
 
@@ -352,6 +350,7 @@ export default defineComponent({
       handleShopping,
       handleOpenShoppingCart,
       handleOrder,
+      handleCheckOrders,
 
       auth,
 

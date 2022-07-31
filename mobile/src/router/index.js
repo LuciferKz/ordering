@@ -30,6 +30,14 @@ const routes = [
     },
     component: () => import("@/views/Member.vue"),
   },
+  {
+    path: "/order",
+    name: "Order",
+    meta: {
+      title: "我的订单"
+    },
+    component: () => import("@/views/Order.vue"),
+  }
   // {
   //   path: "/404",
   //   meta: {
