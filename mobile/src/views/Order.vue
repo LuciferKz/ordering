@@ -15,13 +15,17 @@
         <div class="order-list-item__deskNo">桌位号:<span>{{ order.desk_no }}</span></div>
         <div class="order-list-item__price">共件{{ order.count }}菜品，合计: <span>￥{{ order.price }}</span></div>
       </div>
+      <div class="order-list-item__btns" v-if="order.status === 4">
+        <el-button @click="handlePayOrder(order)" type="primary">支付订单</el-button>
+        <el-button @click="handleCancelOrder(order)">取消订单</el-button>
+      </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import { getOrders } from "@/api";
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { getOrders, updateOrder } from "@/api";
 import $cookie from "@/utils/cookie";
 import dayjs from "dayjs";
 
@@ -37,23 +41,41 @@ export default defineComponent({
     })
 
     
-    const statusAlias = { 1: '订单已完成', 2: '订单制作中', 3: '订单已支付', 4: '订单待支付' }
-    getOrders({
-      open_id: openid
-    }).then((res) => {
-      if (res.success) {
-        orders.value = res.data.rows.map(order => {
-          order.statusAlias = statusAlias[order.status]
-          order.detail = JSON.parse(order.detail)
-          return order
-        })
-      }
+    const statusAlias = { 1: '订单已完成', 2: '订单制作中', 3: '订单已支付', 4: '订单待支付', 5: '订单已取消' }
+
+    const query = function () {
+      getOrders({
+        open_id: openid
+      }).then((res) => {
+        if (res.success) {
+          orders.value = res.data.rows.map(order => {
+            order.statusAlias = statusAlias[order.status]
+            order.detail = JSON.parse(order.detail)
+            return order
+          })
+        }
+      })
+    }
+
+    const handlePayOrder = function (order) {
+      updateOrder({ id: order.id, status: 3 })
+    }
+    const handleCancelOrder = function (order) {
+      updateOrder({ id: order.id, status: 5 })
+    }
+
+    onMounted(() => {
+      query();
     })
 
     return {
       orders,
 
-      computedCreatedAt
+      computedCreatedAt,
+
+      handlePayOrder,
+
+      handleCancelOrder
     }
   },
 });
@@ -108,6 +130,12 @@ export default defineComponent({
         font-size: 18px;
         color: #ff3333;
       }
+    }
+
+    &__btns {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 10px;
     }
 
     .order-item {

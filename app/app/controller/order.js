@@ -34,13 +34,23 @@ class OrderController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    // 1: 订单已完成 2: 订单制作中 3: 订单已支付 4: 订单待支付
+    // 1: 订单已完成 2: 订单制作中 3: 订单已支付 4: 订单待支付 5: 订单已取消
     const order = await ctx.model.Order.create({ ...ctx.request.body, status: 4 });
     ctx.status = 201;
     ctx.body = message.success("下单成功", order);
   }
 
   async update() {
+    const ctx = this.ctx;
+    const id = toInt(ctx.params.id);
+    const order = await ctx.model.Order.findByPk(id);
+    if (!order) {
+      ctx.status = 404;
+      ctx.body = message.warning("订单不存在");
+      return;
+    }
+    await order.update(ctx.request.body);
+    ctx.body = message.success("更新订单成功", { data: order });
   }
 
   async destroy() {
