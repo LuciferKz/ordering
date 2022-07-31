@@ -167,9 +167,12 @@ import { clone, mix } from "@/utils/";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import $cookie from "@/utils/cookie";
+import { useWxAuth } from '@/hooks';
 
 export default defineComponent({
   setup() {
+    useWxAuth();
+    
     const route = useRoute();
     const store = useStore();
     const storeId = route.query.storeId || $cookie.get('storeId');
