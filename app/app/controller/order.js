@@ -34,9 +34,8 @@ class OrderController extends Controller {
 
   async create() {
     const ctx = this.ctx;
-    const order = await ctx.model.Order.create(ctx.request.body);
     // 1: 订单已完成 2: 订单制作中 3: 订单已支付 4: 订单待支付
-    order.status = 4;
+    const order = await ctx.model.Order.create({ ...ctx.request.body, status: 4 });
     ctx.status = 201;
     ctx.body = message.success("下单成功", order);
   }
