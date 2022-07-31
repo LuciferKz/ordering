@@ -35,11 +35,15 @@ export default defineComponent({
         return dayjs(order.created_at).format("YYYY-MM-DD HH:mm:ss");
       }
     })
+
+    
+    const statusAlias = { 1: '订单已完成', 2: '订单制作中', 3: '订单已支付', 4: '订单待支付' }
     getOrders({
       open_id: openid
     }).then((res) => {
       if (res.success) {
         orders.value = res.data.rows.map(order => {
+          order.statusAlias = statusAlias[order.status]
           order.detail = JSON.parse(order.detail)
           return order
         })
@@ -63,6 +67,7 @@ export default defineComponent({
   .order-list-item {
     background: #fff;
     border-radius: 5px;
+    margin-bottom: 10px;
     padding: 10px;
 
     &__info {
@@ -70,11 +75,12 @@ export default defineComponent({
       justify-content: space-between;
       font-size: 10px;
       color: #bbb;
+      letter-spacing: 1px;
     }
 
     &__detail {
       // display: flex;
-      margin: 5px 0;
+      margin: 10px 0;
       padding: 5px;
       background-color: #fafafa;
       color: #333;

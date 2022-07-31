@@ -11,24 +11,20 @@ function toInt(str) {
 class OrderController extends Controller {
   async index() {
     const ctx = this.ctx;
-    const { openId, limit, offset } = ctx.query;
+    const { openId, limit = 10, offset = 0 } = ctx.query;
     const { Op } = this.app.Sequelize;
     const where = {};
     if (openId) {
       where.open_id = { [Op.like]: `%${openId}%` };
     }
     
-    const query = {};
+    const query = {
+      limit,
+      offset,
+      order: [['created_at', 'DESC']]
+    };
     const orders = await ctx.model.Order.findAndCountAll(query);
-    const statusAlias = { 1: '订单已完成', 2: '订单制作中', 3: '订单已支付', 4: '订单待支付' }
-    // orders.rows.forEach((order) => {
-    //   order.statusAlias = statusAlias[order.status]
-    // })
-    orders.rows = orders.rows.map((order) => {
-      order.statusAlias = '订单待支付';
-      return order;
-    })
-    ctx.body = message.success("获取订单列表成功123", orders);
+    ctx.body = message.success("获取订单列表成功", orders);
   }
 
   async show() {

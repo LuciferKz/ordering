@@ -266,7 +266,7 @@ export default defineComponent({
 
           let price = 0;
           shoppingCartProducts.forEach((p) => {
-            price += p.shopping * p.price
+            price += p.shopping * p.detail.price
           })
 
           createOrder({
