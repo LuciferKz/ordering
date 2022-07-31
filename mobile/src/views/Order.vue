@@ -57,11 +57,13 @@ export default defineComponent({
       })
     }
 
-    const handlePayOrder = function (order) {
-      updateOrder({ id: order.id, status: 3 })
+    const handlePayOrder = async function (order) {
+      await updateOrder({ id: order.id, status: 3 });
+      query();
     }
-    const handleCancelOrder = function (order) {
-      updateOrder({ id: order.id, status: 5 })
+    const handleCancelOrder = async function (order) {
+      await updateOrder({ id: order.id, status: 5 });
+      query();
     }
 
     onMounted(() => {
