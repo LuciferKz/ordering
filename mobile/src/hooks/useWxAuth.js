@@ -22,23 +22,23 @@ export function useWxAuth () {
   const userInfo = computed(() => store.state.user.info)
 
   if (!userInfo.openid) {
-    const code = route.query.code || $cookie.get('code');
+    const code = route.query.code;
     const token = $cookie.get('token');
     const openid = $cookie.get('openId');
-    if (token && openid) {
-      handleGetUserInfo(token, openid)
-      router.push("/menu");
+    if (code) {
+      getAccessToken({
+        code
+      }).then((res) => {
+        const { accessToken, openid } = res.result
+        $cookie.set('token', accessToken)
+        $cookie.set('openId', openid)
+        handleGetUserInfo(accessToken, openid)
+        router.push("/menu");
+      })
     } else {
-      if (code) {
-        getAccessToken({
-          code
-        }).then((res) => {
-          const { accessToken, openid } = res.result
-          $cookie.set('token', accessToken)
-          $cookie.set('openId', openid)
-          handleGetUserInfo(accessToken, openid)
-          router.push("/menu");
-        })
+      if (token && openid) {
+        handleGetUserInfo(token, openid)
+        router.push("/menu");
       } else {
         router.push("/menu");
       }
