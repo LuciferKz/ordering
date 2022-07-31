@@ -171,7 +171,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import $cookie from "@/utils/cookie";
 import { useWxAuth } from '@/hooks';
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export default defineComponent({
   setup() {
@@ -249,41 +249,45 @@ export default defineComponent({
     }
 
     const handleOrder = function () {
-          console.log(shoppingCart) 
-      if (shoppingCount.value > 0) {
-        if (userInfo.value.openid) {
-          console.log(shoppingCart)
-          const shoppingCartProducts = Object.values(shoppingCart.value)
-          const detail = shoppingCartProducts.map((p) => {
-            return {
-              id: p.id,
-              product_id: p.id,
-              name: p.detail.name,
-              shopping: p.shopping,
-              price: p.detail.price
-            }
-          })
+      ElMessageBox.confirm('是否确认下单？', '下单', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+      }).then(() => {
+        if (shoppingCount.value > 0) {
+          if (userInfo.value.openid) {
+            console.log(shoppingCart)
+            const shoppingCartProducts = Object.values(shoppingCart.value)
+            const detail = shoppingCartProducts.map((p) => {
+              return {
+                id: p.id,
+                product_id: p.id,
+                name: p.detail.name,
+                shopping: p.shopping,
+                price: p.detail.price
+              }
+            })
 
-          let price = 0;
-          shoppingCartProducts.forEach((p) => {
-            price += p.shopping * p.detail.price
-          })
+            let price = 0;
+            shoppingCartProducts.forEach((p) => {
+              price += p.shopping * p.detail.price
+            })
 
-          createOrder({
-            open_id: userInfo.value.openid,
-            desk_no: +deskNo,
-            detail: JSON.stringify(detail),
-            price,
-            count: shoppingCount.value
-          }).then(res => {
-            if (res.success) {
-              ElMessage.success(res.message);
-              router.push('/order');
-              store.dispatch('changeCart', {})
-            }
-          })
+            createOrder({
+              open_id: userInfo.value.openid,
+              desk_no: +deskNo,
+              detail: JSON.stringify(detail),
+              price,
+              count: shoppingCount.value
+            }).then(res => {
+              if (res.success) {
+                ElMessage.success(res.message);
+                router.push('/order');
+                store.dispatch('changeCart', {})
+              }
+            })
+          }
         }
-      }
+      })
     }
 
     const init = function () {

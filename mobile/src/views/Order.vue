@@ -28,6 +28,7 @@ import { defineComponent, ref, computed, onMounted } from "vue";
 import { getOrders, updateOrder } from "@/api";
 import $cookie from "@/utils/cookie";
 import dayjs from "dayjs";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export default defineComponent({
   setup() {
@@ -57,13 +58,23 @@ export default defineComponent({
       })
     }
 
-    const handlePayOrder = async function (order) {
-      await updateOrder({ id: order.id, status: 3 });
-      query();
+    const handlePayOrder = function (order) {
+      ElMessageBox.confirm('是否确认支付订单？', '支付下单', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+      }).then(async () => {
+        await updateOrder({ id: order.id, status: 3 });
+        query();
+      })
     }
-    const handleCancelOrder = async function (order) {
-      await updateOrder({ id: order.id, status: 5 });
-      query();
+    const handleCancelOrder = function (order) {
+      ElMessageBox.confirm('是否确认取消订单？', '取消订单', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+      }).then(async () => {
+        await updateOrder({ id: order.id, status: 5 });
+        query();
+      })
     }
 
     onMounted(() => {
