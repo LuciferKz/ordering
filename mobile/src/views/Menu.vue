@@ -171,6 +171,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import $cookie from "@/utils/cookie";
 import { useWxAuth } from '@/hooks';
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   setup() {
@@ -273,6 +274,12 @@ export default defineComponent({
             detail: JSON.stringify(detail),
             price,
             count: shoppingCount.value
+          }).then(res => {
+            if (res.success) {
+              ElMessage.success(res.message);
+              router.push('/order');
+              store.dispatch('changeCart', {})
+            }
           })
         }
       }

@@ -11,4 +11,4 @@ export const getOrders = (data: any) => {
 
 export const createOrder = (data: any) => {
   return service({ ...api.createOrder, data });
-};
+}; 

@@ -31,7 +31,7 @@ class OrderController extends Controller {
     const ctx = this.ctx;
     const order = await ctx.model.Order.create(ctx.request.body);
     ctx.status = 201;
-    ctx.body = message.success("下单成功", { data: order });
+    ctx.body = message.success("下单成功", order);
   }
 
   async update() {
