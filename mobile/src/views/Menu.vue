@@ -24,7 +24,7 @@
             <span>{{ userInfo.nickname || '登录 / 授权' }}</span>
             <label
               class="desk-no"
-              v-if="storeInfo.deskNo && storeInfo.deskNo > 0"
+              v-if="storeInfo.deskNo"
             >{{ storeInfo.deskNo }}号桌</label>
           </h2>
           <p class="store-name">
