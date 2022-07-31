@@ -4,9 +4,16 @@
       <dl>
         <dt class="user-avatar">
           <img
+            v-if="userInfo.headimgurl"
             class="user-avatar__img"
             alt=""
-            :src="userInfo.headimgurl || '../assets/sh/defaultHeadPic.svg'"
+            :src="userInfo.headimgurl"
+          />
+          <img
+            v-else
+            class="user-avatar__img"
+            alt=""
+            src="../assets/sh/defaultHeadPic.svg"
           >
         </dt>
         <dd class="store-info">
